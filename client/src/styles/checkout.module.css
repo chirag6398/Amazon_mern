@@ -1,0 +1,38 @@
+.checkout_ad {
+  width: 100%;
+  object-fit: contain;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+}
+.container {
+  display: flex;
+  background-color: white;
+  height: max-content;
+}
+.checkout_leftSide {
+  display: flex;
+  flex-direction: column;
+}
+.checkout_rightSide {
+  width: 100%;
+  height: fit-content;
+}
+.checkout_basket {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 160px) and (max-width: 795px) {
+  .checkout_ad {
+    width: 100%;
+    object-fit: contain;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+  }
+}
