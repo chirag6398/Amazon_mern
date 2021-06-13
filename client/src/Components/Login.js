@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import loginStyle from "../styles/login.module.css";
 import { Link, useHistory } from "react-router-dom";
-// import { auth } from "../Firebase/firebase";
 
 export default function Login() {
   const history = useHistory();
@@ -10,29 +9,10 @@ export default function Login() {
 
   const signInHandler = (e) => {
     e.preventDefault();
-    // auth
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then((auth) => {
-    //     history.push("/");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   const registerHandler = (e) => {
-    e.preventDefault();
-    // auth
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then((auth) => {
-    //     console.log(auth);
-    //     if (auth) {
-    //       history.push("/");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    history.push("/register");
   };
 
   return (

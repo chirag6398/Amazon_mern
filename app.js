@@ -16,7 +16,8 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 
 // routes file serve
-app.use(require("./Routes/route"));
+app.use(require("./routes/user"));
+app.use(require("./routes/route"));
 
 // app.get("*", function (req, res) {
 //   res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
