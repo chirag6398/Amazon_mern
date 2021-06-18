@@ -70,6 +70,20 @@ form {
   width: 190px;
   border-bottom: 2px solid black;
 }
+.button {
+  outline: none;
+
+  border: 1.3px solid black;
+  text-align: center;
+  width: 180px;
+  padding: 10px 10px;
+  background-color: #f0c14b;
+  transition: 1s all ease-in;
+}
+.button:hover {
+  background-color: #f9ad21;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
 @media screen and (max-width: 440px) {
   .rowContainer {
     flex-direction: column;

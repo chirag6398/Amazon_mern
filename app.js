@@ -6,16 +6,12 @@ dotenv.config({ path: "./config.env" });
 const PORT = process.env.PORT || 5000;
 // app.use(express.static(path.resolve(__dirname, "client/build")));
 
-// mongoose connection
 require("./db/conn");
 
-// Middleware
 app.use(express.json());
-// app.use(cookieParser());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 
-// routes file serve
 app.use(require("./routes/user"));
 app.use(require("./routes/route"));
 

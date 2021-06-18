@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import RegisterStyle from "../styles/register.module.css";
-import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import { Link, useHistory } from "react-router-dom";
 import amzImg from "../assets/images/amazonimg.png";
-// import Col from "react-bootstrap/Col";
-// import Row from "react-bootstrap/Row";
+import userRegister from "../services/user";
+
 export default function Register() {
   const [userCredentials, setUserCredentials] = useState({
     username: "",
@@ -13,8 +11,22 @@ export default function Register() {
     password: "",
     cpassword: "",
   });
+  const history = useHistory();
   const inputHandler = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
+  };
+  const submitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      console.log(userCredentials);
+      const data = await userRegister(userCredentials);
+      console.log(data.status);
+      if (data.status === 200) {
+        history.push("/login");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className={RegisterStyle.extDiv}>
@@ -75,9 +87,25 @@ export default function Register() {
                 />
               </div>
             </div>
+            <div className={RegisterStyle.row}>
+              <div className={RegisterStyle.rowContainer}>
+                <button
+                  className={RegisterStyle.button}
+                  type="submit"
+                  onClick={submitHandler}
+                >
+                  Register
+                </button>
+              </div>
+            </div>
           </form>
         </div>
-        <div className={RegisterStyle.footer}></div>
+        <div className={RegisterStyle.footer}>
+          <span>Already have an account?</span>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <span> Login?</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
