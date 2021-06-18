@@ -1,14 +1,28 @@
 import React, { useState } from "react";
 import loginStyle from "../styles/login.module.css";
 import { Link, useHistory } from "react-router-dom";
+import { userLogin } from "../services/user";
 
 export default function Login() {
   const history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userCredentials, setUserCredentials] = useState({
+    email: "",
+    password: "",
+  });
 
-  const signInHandler = (e) => {
-    e.preventDefault();
+  const inputHandler = (e) => {
+    setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
+  };
+  const signInHandler = async (e) => {
+    try {
+      e.preventDefault();
+      const data = await userLogin(userCredentials);
+      if (data.status === 200) {
+        history.push("/");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const registerHandler = (e) => {
@@ -29,15 +43,17 @@ export default function Login() {
         <form>
           <h5>E-mail</h5>
           <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            name="email"
+            value={userCredentials.email}
+            onChange={inputHandler}
           ></input>
           <h5>password</h5>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={userCredentials.password}
+            onChange={inputHandler}
           />
           <button
             className={loginStyle.login_signinButton}
