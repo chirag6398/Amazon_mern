@@ -2,8 +2,8 @@ import React from "react";
 import Product from "./Product";
 import homeStyle from "../../styles/home.module.css";
 import Himg from "../../assets/images/H1.jpg";
-
-export default function home() {
+// import { StateValue } from "../../StateProvider/StateProvider";
+export default function Home() {
   return (
     <div className={homeStyle.home_container}>
       <img className={homeStyle.home_img1} src={Himg} alt="..." />

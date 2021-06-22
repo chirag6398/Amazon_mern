@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 dotenv.config({ path: "./config.env" });
 const PORT = process.env.PORT || 5000;
@@ -11,7 +12,7 @@ require("./db/conn");
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
-
+app.use(cookieParser());
 app.use(require("./routes/user"));
 app.use(require("./routes/route"));
 

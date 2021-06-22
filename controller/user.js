@@ -17,6 +17,9 @@ const generateToken = (id) => {
 };
 
 module.exports = {
+  Authenticated: async (req, res) => {
+    res.status(200).json({ user: req.user });
+  },
   Register: async (req, res) => {
     try {
       const { username, email, password, cpassword } = req.body;
@@ -67,7 +70,7 @@ module.exports = {
               });
               return res
                 .status(200)
-                .json({ message: "user login successfully" });
+                .json({ message: "user login successfully", user });
             } else {
               return res.status(500).json({ error: "server error" });
             }
@@ -80,6 +83,14 @@ module.exports = {
       }
     } catch (err) {
       console.log("login issue", err);
+    }
+  },
+  Logout: async (req, res) => {
+    try {
+      res.clearCookie("user_token", { path: "/" });
+      res.status(201).send("user logout successfully");
+    } catch (e) {
+      console.log("logout err", e);
     }
   },
 };

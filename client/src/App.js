@@ -6,12 +6,26 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Checkout from "./Components/checkout";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
-// import { StateValue } from "./StateProvider/StateProvider";
+import { StateValue } from "./StateProvider/StateProvider";
 import Payment from "./Components/Payment";
 import Orders from "./Components/Order.js";
-
+import { userIsAuthenticated } from "./services/user";
 function App() {
-  // const [{}, dispatch] = StateValue();
+  const [{}, dispatch] = StateValue();
+
+  const getUser = async () => {
+    try {
+      const user = await userIsAuthenticated();
+
+      dispatch({ type: "Set_user", payload: user });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <BrowserRouter>

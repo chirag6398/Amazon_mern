@@ -4,7 +4,7 @@ export const initialState = {
 };
 
 export const reducer = (state, action) => {
-  console.log(action.item);
+  console.log(action.payload);
   switch (action.type) {
     case "AddToCart":
       return {
@@ -19,7 +19,7 @@ export const reducer = (state, action) => {
     case "Set_user":
       return {
         ...state,
-        user: action.user,
+        user: action.payload.user,
       };
     case "Empty_basket":
       return {

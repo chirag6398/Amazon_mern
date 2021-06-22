@@ -5,15 +5,22 @@ import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link } from "react-router-dom";
 import { StateValue } from "../StateProvider/StateProvider";
-// import { auth } from "../Firebase/firebase";
+import { userLogout } from "../services/user";
 
 export default function header() {
   const [state, dispatch] = StateValue();
-  // const authHandler = () => {
-  //   if (state.user) {
-  //     auth.signOut();
-  //   }
-  // };
+  console.log(state);
+
+  const logoutHandler = async () => {
+    if (state.user) {
+      try {
+        const res = await userLogout();
+        console.log(res);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
 
   return (
     <div className={headerStyle.header}>
@@ -27,13 +34,20 @@ export default function header() {
       </div>
 
       <div className={headerStyle.header_nav}>
-        <Link to={!state.user && "/login"}>
+        <Link to="/login">
           <div className={headerStyle.header_option}>
             <span className={headerStyle.header_optionLineOne}>
-              {state.user ? <span>{`Hello,${state.user}`}</span> : "guest"}
+              {state.user ? (
+                <span>{`Hello,${state.user.username}`}</span>
+              ) : (
+                "guest"
+              )}
             </span>
 
-            <span className={headerStyle.header_optionLineTwo}>
+            <span
+              className={headerStyle.header_optionLineTwo}
+              onClick={logoutHandler}
+            >
               {state.user ? "sign-out" : "sign-in"}
             </span>
           </div>
@@ -49,7 +63,6 @@ export default function header() {
         </div>
 
         <Link to="/checkout">
-          {" "}
           <div
             classname={headerStyle.header_optionBasket}
             style={{ color: "white", display: "flex", alignItems: "center" }}

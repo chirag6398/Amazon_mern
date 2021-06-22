@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import loginStyle from "../styles/login.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { userLogin } from "../services/user";
-
+import { StateValue } from "../StateProvider/StateProvider";
+// import {userIsAuthenticated} from "../services/user";
 export default function Login() {
+  const [state, dispatch] = StateValue();
   const history = useHistory();
   const [userCredentials, setUserCredentials] = useState({
     email: "",
@@ -17,7 +19,9 @@ export default function Login() {
     try {
       e.preventDefault();
       const data = await userLogin(userCredentials);
+      const user = data.data;
       if (data.status === 200) {
+        dispatch({ type: "Set_user", payload: user });
         history.push("/");
       }
     } catch (err) {
