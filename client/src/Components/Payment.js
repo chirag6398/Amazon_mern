@@ -5,8 +5,6 @@ import BasketItems from "./BasketItems.js";
 import { useHistory } from "react-router-dom";
 // import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import subtotalStyle from "../styles/subtotal.module.css";
-// import axios from "../axios";
-// import { db } from "../Firebase/firebase";
 
 export default function Payment() {
   // const stripe = useStripe();
@@ -66,10 +64,11 @@ export default function Payment() {
     history.replace("/orders");
     // });
   };
-  const handleChange = (e) => {
-    setDisable(e.empty);
-    setError(e.error ? e.error.message : "");
-  };
+
+  // const handleChange = (e) => {
+  //   setDisable(e.empty);
+  //   setError(e.error ? e.error.message : "");
+  // };
 
   return (
     <div className={paymentStyle.payment}>
@@ -88,7 +87,7 @@ export default function Payment() {
           <div className={paymentStyle.payment_address}>
             {state.user ? (
               <p>
-                {state.user}
+                {state.user.username}
                 <br />
                 kayasthan street, Chandausi
               </p>

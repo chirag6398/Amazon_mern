@@ -1,6 +1,5 @@
 import React from "react";
 import productStyle from "../../styles/product.module.css";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { StateValue } from "../../StateProvider/StateProvider";
 // import { useSpring, animated } from "react-spring";
 
@@ -39,12 +38,12 @@ export default function Product({ title, imgUrl, id, price }) {
         </div>
         <img className="card-img-top" src={imgUrl} alt="..." />
 
-        <buton
+        <button
           className={productStyle.product_adToCartButton}
           onClick={AddtocartHandler}
         >
           Add to cart
-        </buton>
+        </button>
       </div>
     </div>
   );

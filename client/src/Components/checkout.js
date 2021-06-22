@@ -2,7 +2,7 @@ import React from "react";
 import checkoutStyle from "../styles/checkout.module.css";
 import Subtotal from "./Subtotal";
 import BasketItems from "./BasketItems.js";
-export default function checkout() {
+export default function Checkout() {
   return (
     <div className={checkoutStyle.container}>
       <div className={checkoutStyle.checkout_leftSide}>

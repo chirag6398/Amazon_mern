@@ -3,7 +3,6 @@ import loginStyle from "../styles/login.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { userLogin } from "../services/user";
 import { StateValue } from "../StateProvider/StateProvider";
-// import {userIsAuthenticated} from "../services/user";
 export default function Login() {
   const [state, dispatch] = StateValue();
   const history = useHistory();

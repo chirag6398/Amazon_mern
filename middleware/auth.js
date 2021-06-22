@@ -3,6 +3,7 @@ const User = require("../models/User");
 const auth = async (req, res, next) => {
   try {
     const token = req.cookies.user_token;
+
     if (token) {
       const isVerify = jwt.verify(token, process.env.SECRET_KEY);
 
@@ -15,6 +16,7 @@ const auth = async (req, res, next) => {
       }
 
       req.user = user;
+      next();
     }
     req.user = null;
     next();

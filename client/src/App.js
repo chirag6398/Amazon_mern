@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import Header from "./Components/header";
-import Home from "./Components/Home/home";
+import Header from "./Components/Header";
+import Home from "./Components/Home/Home";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Checkout from "./Components/checkout";
+import Checkout from "./Components/Checkout";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import { StateValue } from "./StateProvider/StateProvider";
@@ -37,7 +37,6 @@ function App() {
           </Route>
           <Route exact path="/payment">
             <Header />
-
             <Payment />
           </Route>
           <Route exact path="/checkout">
@@ -47,7 +46,7 @@ function App() {
           <Route exact path="/login">
             <Login />
           </Route>
-          <Route exact="/register">
+          <Route exact path="/register">
             <Register />
           </Route>
           <Route exact path="/orders">

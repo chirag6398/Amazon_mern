@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { StateValue } from "../StateProvider/StateProvider";
 import { userLogout } from "../services/user";
 
-export default function header() {
+export default function Header() {
   const [state, dispatch] = StateValue();
   console.log(state);
 
@@ -64,7 +64,7 @@ export default function header() {
 
         <Link to="/checkout">
           <div
-            classname={headerStyle.header_optionBasket}
+            className={headerStyle.header_optionBasket}
             style={{ color: "white", display: "flex", alignItems: "center" }}
           >
             <ShoppingBasketIcon />
