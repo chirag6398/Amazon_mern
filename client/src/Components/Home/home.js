@@ -2,12 +2,29 @@ import React from "react";
 import Product from "./Product";
 import homeStyle from "../../styles/home.module.css";
 import Himg from "../../assets/images/H1.jpg";
+import { StateValue } from "../../StateProvider/StateProvider";
 // import { StateValue } from "../../StateProvider/StateProvider";
 export default function Home() {
+  const [state] = StateValue();
+  function arrayBufferToBase64(buffer) {
+    var binary = "";
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => (binary += String.fromCharCode(b)));
+    return window.btoa(binary);
+  }
+  var imgData = null;
+  if (state.user?.avatar.data) {
+    imgData = arrayBufferToBase64(state.user?.avatar.data);
+    // console.log(imgData);
+    // imgData = "data:image/jpeg;base64," + imgData;
+  }
   return (
     <div className={homeStyle.home_container}>
       <img className={homeStyle.home_img1} src={Himg} alt="..." />
       <div className={homeStyle.home_products}>
+        {imgData != null ? (
+          <img src={`data:image/png;base64,${imgData}`} alt="..." />
+        ) : null}
         <Product
           title=" Some quick example text to build on the card title and make up the
           bulk of the card's content."
