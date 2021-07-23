@@ -10,16 +10,26 @@ export default function Register() {
     email: "",
     password: "",
     cpassword: "",
+    avatar: "",
   });
   const history = useHistory();
   const inputHandler = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
   };
+  const avatarHandler = (e) => {
+    setUserCredentials({ ...userCredentials, avatar: e.target.files[0] });
+  };
   const submitHandler = async (e) => {
     try {
       e.preventDefault();
       console.log(userCredentials);
-      const data = await userRegister(userCredentials);
+      let formData = new FormData();
+      formData.append("avatar", userCredentials.avatar);
+      formData.append("username", userCredentials.username);
+      formData.append("email", userCredentials.email);
+      formData.append("password", userCredentials.password);
+      formData.append("cpassword", userCredentials.cpassword);
+      const data = await userRegister(formData);
       console.log(data.status);
       if (data.status === 200) {
         history.push("/login");
@@ -38,7 +48,13 @@ export default function Register() {
           <h3>Register</h3>
         </div>
         <div className={RegisterStyle.form}>
-          <form>
+          <form encType="multipart/form-data">
+            <div className={RegisterStyle.row}>
+              <div className={RegisterStyle.rowContainer}>
+                <span>Avatar</span>
+                <input type="file" name="avatar" onChange={avatarHandler} />
+              </div>
+            </div>
             <div className={RegisterStyle.row}>
               <div className={RegisterStyle.rowContainer}>
                 <span>Name </span>
@@ -110,3 +126,8 @@ export default function Register() {
     </div>
   );
 }
+
+// cpassword: "5"
+// email: "test2@gmail.com"
+// password: "5"
+// username: "chirag112"

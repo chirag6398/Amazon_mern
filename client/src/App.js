@@ -9,6 +9,7 @@ import Register from "./Components/Register";
 import { StateValue } from "./StateProvider/StateProvider";
 import Payment from "./Components/Payment";
 import Orders from "./Components/Order.js";
+import AddProduct from "./Components/AddProduct";
 import { userIsAuthenticated } from "./services/user";
 function App() {
   const [{}, dispatch] = StateValue();
@@ -52,6 +53,9 @@ function App() {
           <Route exact path="/orders">
             <Header />
             <Orders />
+          </Route>
+          <Route exact path="/addAvatar">
+            <AddProduct />
           </Route>
         </Switch>
       </div>

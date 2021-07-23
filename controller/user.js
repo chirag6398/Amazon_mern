@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const sharp = require("sharp");
 
 const hashPassword = async (password) => {
   try {
@@ -23,6 +24,14 @@ module.exports = {
   Register: async (req, res) => {
     try {
       const { username, email, password, cpassword } = req.body;
+      let avatarBuffer = null;
+      if (req.file) {
+        avatarBuffer = await sharp(req.file.buffer)
+          .resize({ width: 250, height: 250 })
+          .png()
+          .toBuffer();
+      }
+
       if (!username || !email || !password || !cpassword) {
         return res.status(401).json({ error: "plz fill all fields" });
       } else if (password != cpassword) {
@@ -35,6 +44,10 @@ module.exports = {
         } else {
           const newUser = new User({ username, email, password, cpassword });
           newUser.password = await hashPassword(newUser.password);
+          if (avatarBuffer != null) {
+            newUser.avatar = avatarBuffer;
+          }
+
           const status = await newUser.save();
           if (status) {
             console.log(status);
@@ -47,7 +60,7 @@ module.exports = {
         }
       }
     } catch (err) {
-      console.log(err);
+      console.log("register", err);
     }
   },
   Login: async (req, res) => {
@@ -91,6 +104,20 @@ module.exports = {
       res.status(201).send("user logout successfully");
     } catch (e) {
       console.log("logout err", e);
+    }
+  },
+  addAvatar: async (req, res) => {
+    try {
+      console.log("avatar route");
+      console.log(req.file);
+      const avatarBuffer = await sharp(req.file.buffer)
+        .resize({ width: 250, height: 250 })
+        .png()
+        .toBuffer();
+
+      console.log(avatarBuffer);
+    } catch (e) {
+      console.log("avatar", e);
     }
   },
 };
