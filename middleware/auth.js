@@ -17,9 +17,10 @@ const auth = async (req, res, next) => {
 
       req.user = user;
       next();
+    } else {
+      req.user = null;
+      next();
     }
-    req.user = null;
-    next();
   } catch (e) {
     console.log("auth middleware ", e);
   }

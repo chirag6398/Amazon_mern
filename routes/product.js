@@ -1,6 +1,7 @@
 const route = require("express").Router();
 const productController = require("../controller/product");
 const multer = require("multer");
+const auth = require("../middleware/auth");
 const uploadProductImg = multer({
   limits: {
     fileSize: 1000000,
@@ -16,6 +17,7 @@ const uploadProductImg = multer({
 route.post(
   "/addProduct",
   uploadProductImg.single("productImg"),
+  auth,
   productController.addProduct
 );
 
