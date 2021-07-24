@@ -4,10 +4,16 @@ import RegisterStyle from "../styles/register.module.css";
 
 export default function AddProduct() {
   const [product, setProduct] = useState({
+    title: "",
     productImg: "",
+    desc: "",
+    price: null,
   });
-  const avatarHandler = (e) => {
+  const productImageHandler = (e) => {
     setProduct({ ...product, productImg: e.target.files[0] });
+  };
+  const inputHandler = (e) => {
+    setProduct({ ...product, [e.target.name]: e.target.value });
   };
   const formHandler = async (e) => {
     try {
@@ -15,7 +21,10 @@ export default function AddProduct() {
       console.log(product);
       const formData = new FormData();
       formData.append("productImg", product.productImg);
-      // console.log(formData.productImg);
+      formData.append("title", product.title);
+      formData.append("desc", product.desc);
+      formData.append("price", product.price);
+
       const res = await uploadProduct(formData);
       console.log(res);
     } catch (e) {
@@ -27,8 +36,30 @@ export default function AddProduct() {
       <form onSubmit={formHandler} encType="multipart/form-data">
         <div className={RegisterStyle.row}>
           <div className={RegisterStyle.rowContainer}>
-            <span>Avatar</span>
-            <input type="file" name="productImg" onChange={avatarHandler} />
+            <span>Product image</span>
+            <input
+              type="file"
+              name="productImg"
+              onChange={productImageHandler}
+            />
+          </div>
+        </div>
+        <div className={RegisterStyle.row}>
+          <div className={RegisterStyle.rowContainer}>
+            <span>Title</span>
+            <input type="text" name="title" onChange={inputHandler} />
+          </div>
+        </div>
+        <div className={RegisterStyle.row}>
+          <div className={RegisterStyle.rowContainer}>
+            <span>desc</span>
+            <input type="text" name="desc" onChange={inputHandler} />
+          </div>
+        </div>
+        <div className={RegisterStyle.row}>
+          <div className={RegisterStyle.rowContainer}>
+            <span>Price</span>
+            <input type="number" name="price" onChange={inputHandler} />
           </div>
         </div>
         <div className={RegisterStyle.row}>

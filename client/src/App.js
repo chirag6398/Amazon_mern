@@ -17,8 +17,9 @@ function App() {
   const getUser = async () => {
     try {
       const user = await userIsAuthenticated();
-
-      dispatch({ type: "Set_user", payload: user });
+      if (user) {
+        dispatch({ type: "Set_user", payload: user });
+      }
     } catch (e) {
       console.log(e);
     }
@@ -54,7 +55,7 @@ function App() {
             <Header />
             <Orders />
           </Route>
-          <Route exact path="/addAvatar">
+          <Route exact path="/addProduct">
             <AddProduct />
           </Route>
         </Switch>

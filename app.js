@@ -14,6 +14,7 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require("./routes/user"));
+app.use(require("./routes/product"));
 app.use(require("./routes/route"));
 
 // app.get("*", function (req, res) {
