@@ -1,4 +1,5 @@
 export const initialState = {
+  products: [],
   basket: [],
   user: null,
 };
@@ -25,6 +26,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         basket: [],
+      };
+    case "Set_products":
+      return {
+        ...state,
+        products: action.payload,
       };
     default:
       return state;

@@ -21,4 +21,6 @@ route.post(
   productController.addProduct
 );
 
+route.get("/getProducts", productController.getProducts);
+
 module.exports = route;

@@ -10,6 +10,7 @@ import { StateValue } from "./StateProvider/StateProvider";
 import Payment from "./Components/Payment";
 import Orders from "./Components/Order.js";
 import AddProduct from "./Components/AddProduct";
+import { getProducts } from "./services/product";
 import { userIsAuthenticated } from "./services/user";
 function App() {
   const [{}, dispatch] = StateValue();
@@ -17,6 +18,12 @@ function App() {
   const getUser = async () => {
     try {
       const user = await userIsAuthenticated();
+      const products = await getProducts();
+
+      if (products) {
+        dispatch({ type: "Set_products", payload: products });
+      }
+
       if (user) {
         dispatch({ type: "Set_user", payload: user });
       }

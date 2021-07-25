@@ -3,6 +3,7 @@ import Product from "./Product";
 import homeStyle from "../../styles/home.module.css";
 import Himg from "../../assets/images/H1.jpg";
 import { StateValue } from "../../StateProvider/StateProvider";
+
 // import { StateValue } from "../../StateProvider/StateProvider";
 export default function Home() {
   const [state] = StateValue();

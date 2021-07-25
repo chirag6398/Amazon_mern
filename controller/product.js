@@ -34,4 +34,21 @@ module.exports = {
       console.log("error on add product", e);
     }
   },
+  getProducts: async (req, res) => {
+    try {
+      Product.find()
+        .then((products) => {
+          console.log(products);
+          return res.status(200).json({ products });
+        })
+        .catch((e) => {
+          console.log(e);
+          return res
+            .status(500)
+            .json({ error: "internal server error", status: 500 });
+        });
+    } catch (e) {
+      console.log("get product catch", e);
+    }
+  },
 };

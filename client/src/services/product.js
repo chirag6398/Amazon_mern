@@ -8,5 +8,13 @@ const uploadProduct = async (data) => {
     console.log("service product", e);
   }
 };
-
-export { uploadProduct };
+const getProducts = async () => {
+  try {
+    const res = await axios.get("/getProducts");
+    console.log(res);
+    return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+export { uploadProduct, getProducts };
