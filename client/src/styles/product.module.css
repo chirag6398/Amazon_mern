@@ -43,6 +43,14 @@
 .product_adToCartButton:hover {
   background-color: rgb(241, 109, 60);
 }
+
+.upper_card {
+  cursor: pointer;
+}
+.lower_card {
+  display: flex;
+  justify-content: center;
+}
 @media screen and (min-width: 160px) and (max-width: 795px) {
   .product_card {
     width: 60%;

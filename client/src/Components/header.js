@@ -9,7 +9,7 @@ import { userLogout } from "../services/user";
 
 export default function Header() {
   const [state, dispatch] = StateValue();
-  console.log(state);
+  // console.log(state.products.products);
 
   const logoutHandler = async () => {
     if (state.user) {

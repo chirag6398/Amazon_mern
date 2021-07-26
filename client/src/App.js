@@ -12,8 +12,9 @@ import Orders from "./Components/Order.js";
 import AddProduct from "./Components/AddProduct";
 import { getProducts } from "./services/product";
 import { userIsAuthenticated } from "./services/user";
+import ProductDetail from "./Components/ProductDetail";
 function App() {
-  const [{}, dispatch] = StateValue();
+  const [{ state }, dispatch] = StateValue();
 
   const getUser = async () => {
     try {
@@ -64,6 +65,9 @@ function App() {
           </Route>
           <Route exact path="/addProduct">
             <AddProduct />
+          </Route>
+          <Route exact path="/product/:id">
+            <ProductDetail />
           </Route>
         </Switch>
       </div>

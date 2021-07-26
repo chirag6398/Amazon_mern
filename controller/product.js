@@ -51,4 +51,21 @@ module.exports = {
       console.log("get product catch", e);
     }
   },
+  getProduct: async (req, res) => {
+    try {
+      const id = req.params.id;
+      // console.log(id);
+      Product.findById({ _id: id })
+        .then((product) => {
+          console.log(product);
+          return res.status(200).json({ data: product, status: 200 });
+        })
+        .catch((e) => {
+          console.log(e);
+          return res.status(500);
+        });
+    } catch (e) {
+      console.log("get product route", e);
+    }
+  },
 };

@@ -17,4 +17,13 @@ const getProducts = async () => {
     console.log(e);
   }
 };
-export { uploadProduct, getProducts };
+const getProduct = async (id) => {
+  try {
+    const res = await axios.get(`/getProduct/${id}`);
+
+    return res.data.data;
+  } catch (e) {
+    console.log("from services", e);
+  }
+};
+export { uploadProduct, getProducts, getProduct };
