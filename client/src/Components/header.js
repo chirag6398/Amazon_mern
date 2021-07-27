@@ -72,7 +72,7 @@ export default function Header() {
               className={headerStyle.header_optionLineTwo}
               style={{ margin: "0px 3px" }}
             >
-              {state.basket?.length}
+              {state.user?.cart.items.length}
             </span>
           </div>
         </Link>

@@ -20,7 +20,7 @@ route.post(
   auth,
   productController.addProduct
 );
-
+route.post("/addToCart", auth, productController.addToCart);
 route.get("/getProducts", productController.getProducts);
 
 route.get("/getProduct/:id", productController.getProduct);

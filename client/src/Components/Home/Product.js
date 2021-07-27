@@ -1,18 +1,11 @@
 import React from "react";
 import productStyle from "../../styles/product.module.css";
 import { useHistory } from "react-router";
-// import { StateValue } from "../../StateProvider/StateProvider";
-// import { useSpring, animated } from "react-spring";
-
+import { addToCart } from "../../services/product";
+import { arrayBufferToBase64 } from "../../util/getImgBuffer";
 export default function Product({ product }) {
   const history = useHistory();
 
-  function arrayBufferToBase64(buffer) {
-    var binary = "";
-    var bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach((b) => (binary += String.fromCharCode(b)));
-    return window.btoa(binary);
-  }
   var imgData = null;
 
   imgData = arrayBufferToBase64(product.productImg.data);
@@ -20,16 +13,12 @@ export default function Product({ product }) {
   const productDetailHandler = () => {
     history.push(`/product/${product._id}`);
   };
-  const AddtocartHandler = () => {
-    // dispatch({
-    //   type: "AddToCart",
-    //   item: {
-    //     title: title,
-    //     imgUrl: imgUrl,
-    //     id: id,
-    //     price: price,
-    //   },
-    // });
+  const AddtocartHandler = async () => {
+    try {
+      const data = await addToCart({ id: product._id });
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <div className={productStyle.product_card}>

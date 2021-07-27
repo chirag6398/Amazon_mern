@@ -11,7 +11,7 @@ const uploadProduct = async (data) => {
 const getProducts = async () => {
   try {
     const res = await axios.get("/getProducts");
-    console.log(res);
+
     return res.data;
   } catch (e) {
     console.log(e);
@@ -26,4 +26,14 @@ const getProduct = async (id) => {
     console.log("from services", e);
   }
 };
-export { uploadProduct, getProducts, getProduct };
+
+const addToCart = async ({ id }) => {
+  try {
+    const res = await axios.post("/addToCart", { id });
+    console.log(res);
+    return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+export { uploadProduct, getProducts, getProduct, addToCart };

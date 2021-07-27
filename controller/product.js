@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const User = require("../models/User");
 const sharp = require("sharp");
 module.exports = {
   addProduct: async (req, res) => {
@@ -66,6 +67,35 @@ module.exports = {
         });
     } catch (e) {
       console.log("get product route", e);
+    }
+  },
+  addToCart: async (req, res) => {
+    try {
+      User.findById({ _id: req.user._id })
+        .then((user) => {
+          user
+            .addToCart(req.body.id)
+            .then((response) => {
+              console.log(response);
+
+              return res.status(200).json({
+                message: "product added to cart successfully",
+                cart: response.cart,
+                status: 200,
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } catch (e) {
+      console.log(e);
+      return res
+        .status(404)
+        .json({ error: "somthing went wrong", status: 404 });
     }
   },
 };

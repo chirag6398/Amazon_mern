@@ -14,7 +14,7 @@ export default function ProductDetail() {
   const getData = async () => {
     try {
       const data = await getProduct(id.id);
-      //   console.log(data.data);
+      
       setProduct({
         price: data.price,
         title: data.title,

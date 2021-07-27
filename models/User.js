@@ -17,6 +17,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  cart: {
+    items: [
+      {
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "product",
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+  },
   createdAt: {
     type: String,
     default:
@@ -36,5 +51,26 @@ const userSchema = new mongoose.Schema({
     },
   ],
 });
+userSchema.methods.addToCart = async function (id) {
+  try {
+    let productIndex = -1;
+    productIndex = this.cart.items.findIndex((prod) => {
+      return prod.productId == id;
+    });
+    console.log(productIndex);
+    const newCartItems = [...this.cart.items];
+    if (productIndex != -1) {
+      newCartItems[productIndex].quantity += 1;
+    } else {
+      const newProduct = { productId: id, quantity: 1 };
+      newCartItems.push(newProduct);
+    }
 
+    this.cart.items = newCartItems;
+    await this.save();
+    return this;
+  } catch (e) {
+    console.log(e);
+  }
+};
 module.exports = mongoose.model("User", userSchema);

@@ -16,6 +16,7 @@ const auth = async (req, res, next) => {
       }
 
       req.user = user;
+
       next();
     } else {
       req.user = null;
@@ -23,6 +24,9 @@ const auth = async (req, res, next) => {
     }
   } catch (e) {
     console.log("auth middleware ", e);
+    return res
+      .status(404)
+      .json({ message: "user is not authenticated", status: 404 });
   }
 };
 
