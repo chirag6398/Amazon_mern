@@ -17,6 +17,7 @@ const uploadAvatar = multer({
 
 route.get("/user/logout", auth, userController.Logout);
 route.get("/user/isLogin", auth, userController.Authenticated);
+route.get("/cartitems", auth, userController.cartItems);
 route.post("/register", uploadAvatar.single("avatar"), userController.Register);
 route.post(
   "/addAvatar",

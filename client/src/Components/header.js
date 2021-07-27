@@ -9,7 +9,7 @@ import { userLogout } from "../services/user";
 
 export default function Header() {
   const [state, dispatch] = StateValue();
-  // console.log(state.products.products);
+  console.log(state);
 
   const logoutHandler = async () => {
     if (state.user) {
@@ -72,7 +72,7 @@ export default function Header() {
               className={headerStyle.header_optionLineTwo}
               style={{ margin: "0px 3px" }}
             >
-              {state.user?.cart.items.length}
+              {state.basket?.length}
             </span>
           </div>
         </Link>

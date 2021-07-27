@@ -17,7 +17,7 @@ export default function BasketItems() {
 
   return (
     <div>
-      {state.basket.map((val, i) => {
+      {state.basket?.map((val, i) => {
         return (
           <div className={basketStyle.basket_container} key={i}>
             <div

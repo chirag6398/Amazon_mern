@@ -12,21 +12,27 @@ import Orders from "./Components/Order.js";
 import AddProduct from "./Components/AddProduct";
 import { getProducts } from "./services/product";
 import { userIsAuthenticated } from "./services/user";
+import { getCartItems } from "./services/user";
 import ProductDetail from "./Components/ProductDetail";
 function App() {
-  const [{ state }, dispatch] = StateValue();
+  const [{}, dispatch] = StateValue();
 
   const getUser = async () => {
     try {
       const user = await userIsAuthenticated();
       const products = await getProducts();
-
+      const cartItems = await getCartItems();
+      console.log(cartItems.cart.items);
       if (products) {
         dispatch({ type: "Set_products", payload: products });
       }
 
       if (user) {
         dispatch({ type: "Set_user", payload: user });
+      }
+
+      if (cartItems) {
+        dispatch({ type: "InitialBasket", payload: cartItems.cart.items });
       }
     } catch (e) {
       console.log(e);

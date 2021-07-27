@@ -39,6 +39,15 @@ const userLogout = async () => {
     console.log(e);
   }
 };
-export { userLogin, userIsAuthenticated, userLogout };
+const getCartItems = async () => {
+  try {
+    const res = await axios.get("/cartitems");
+    console.log(res.data);
+    return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+export { userLogin, userIsAuthenticated, userLogout, getCartItems };
 
 export default userRegister;

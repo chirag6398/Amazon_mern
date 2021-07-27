@@ -120,4 +120,22 @@ module.exports = {
       console.log("avatar", e);
     }
   },
+  cartItems: async (req, res) => {
+    try {
+      req.user
+        .populate("cart.items.productId")
+        .execPopulate()
+        .then((user) => {
+          console.log(user);
+          return res.status(200).json({ cart: user.cart });
+        })
+        .catch((e) => {
+          console.log(e);
+          return res.status(500).json({ error: "server error" });
+        });
+    } catch (e) {
+      console.log(e);
+      res.status(404).json({ error: "internal error" });
+    }
+  },
 };

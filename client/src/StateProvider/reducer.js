@@ -1,11 +1,17 @@
 export const initialState = {
   products: [],
-  basket: [],
+  basket: null,
   user: null,
 };
 
 export const reducer = (state, action) => {
+  console.log(action.payload);
   switch (action.type) {
+    case "InitialBasket":
+      return {
+        ...state,
+        basket: action.payload,
+      };
     case "AddToCart":
       return {
         ...state,
