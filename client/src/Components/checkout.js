@@ -2,7 +2,10 @@ import React from "react";
 import checkoutStyle from "../styles/checkout.module.css";
 import Subtotal from "./Subtotal";
 import BasketItems from "./BasketItems.js";
+import { StateValue } from "../StateProvider/StateProvider";
+
 export default function Checkout() {
+  const [state] = StateValue();
   return (
     <div className={checkoutStyle.container}>
       <div className={checkoutStyle.checkout_leftSide}>
@@ -21,7 +24,16 @@ export default function Checkout() {
           Your Basket
         </h3>
         <div className={checkoutStyle.checkout_basket}>
-          <BasketItems />
+          {state.basket?.map((product) => {
+            return (
+              <BasketItems
+                key={product.productId._id}
+                data={product.productId}
+                quantity={product.quantity}
+              />
+            );
+          })}
+          {/* <BasketItems /> */}
         </div>
       </div>
       <div className={checkoutStyle.checkout_rightSide}>

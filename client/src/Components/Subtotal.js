@@ -7,8 +7,10 @@ export default function Subtotal() {
   const [state, dispatch] = StateValue();
   var total = 0;
 
-  for (let val of state.basket) {
-    total += val.price;
+  if (state.basket?.length) {
+    for (let val of state.basket) {
+      total += val.productId.price;
+    }
   }
 
   const history = useHistory();

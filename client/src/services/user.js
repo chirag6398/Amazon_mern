@@ -48,6 +48,21 @@ const getCartItems = async () => {
     console.log(e);
   }
 };
-export { userLogin, userIsAuthenticated, userLogout, getCartItems };
+
+const removeitemFromCart = async (key) => {
+  try {
+    console.log(key);
+    const res = await axios.delete(`/removeItemFromCart/${key}`);
+  } catch (e) {
+    console.log(e);
+  }
+};
+export {
+  userLogin,
+  userIsAuthenticated,
+  removeitemFromCart,
+  userLogout,
+  getCartItems,
+};
 
 export default userRegister;

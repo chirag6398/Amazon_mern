@@ -1,6 +1,6 @@
 export const initialState = {
   products: [],
-  basket: null,
+  basket: [],
   user: null,
 };
 
