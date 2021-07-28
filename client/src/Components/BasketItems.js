@@ -4,12 +4,12 @@ import basketStyle from "../styles/basketItem.module.css";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { arrayBufferToBase64 } from "../util/getImgBuffer";
 import { removeitemFromCart } from "../services/user";
-export default function BasketItems({ data, quantity, key }) {
+export default function BasketItems({ data, quantity, id }) {
   let imgData = arrayBufferToBase64(data.productImg.data);
 
   const removeItem = async () => {
     try {
-      const status = await removeitemFromCart(key);
+      const status = await removeitemFromCart(id);
     } catch (e) {
       console.log(e);
     }

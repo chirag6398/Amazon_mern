@@ -73,4 +73,26 @@ userSchema.methods.addToCart = async function (id) {
     console.log(e);
   }
 };
+userSchema.methods.removeCartItem = async function (id) {
+  try {
+    const newCartitems = this.cart.items.filter((prod) => {
+      return prod._id.toString() != id.toString();
+    });
+
+    // const newCartItems = [...this.cart.items];
+    // if (productIndex != -1) {
+    //   newCartItems[productIndex].quantity += 1;
+    // } else {
+    //   const newProduct = { productId: id, quantity: 1 };
+    //   newCartItems.push(newProduct);
+    // }
+
+    this.cart.items = newCartitems;
+    await this.save();
+    return this;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = mongoose.model("User", userSchema);

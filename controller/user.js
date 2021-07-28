@@ -138,4 +138,24 @@ module.exports = {
       res.status(404).json({ error: "internal error" });
     }
   },
+  deleteCartItem: async (req, res) => {
+    try {
+      console.log(req.params.id);
+      req.user
+        .removeCartItem(req.params.id)
+        .then((status) => {
+          console.log(status);
+          return res.status(200);
+        })
+        .catch((e) => {
+          console.log(e);
+          return res.status(500);
+        });
+
+      return res.status(200);
+    } catch (e) {
+      console.log(e);
+      return res.status(404);
+    }
+  },
 };

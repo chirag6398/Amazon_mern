@@ -49,10 +49,10 @@ const getCartItems = async () => {
   }
 };
 
-const removeitemFromCart = async (key) => {
+const removeitemFromCart = async (id) => {
   try {
-    console.log(key);
-    const res = await axios.delete(`/removeItemFromCart/${key}`);
+    console.log(id);
+    const res = await axios.delete(`/removeItemFromCart/${id}`);
   } catch (e) {
     console.log(e);
   }

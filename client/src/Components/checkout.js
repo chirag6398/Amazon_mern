@@ -27,7 +27,8 @@ export default function Checkout() {
           {state.basket?.map((product) => {
             return (
               <BasketItems
-                key={product.productId._id}
+                key={product._id}
+                id={product._id}
                 data={product.productId}
                 quantity={product.quantity}
               />
