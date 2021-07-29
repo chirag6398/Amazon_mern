@@ -88,12 +88,6 @@ module.exports = {
                   console.log(e);
                   return res.status(500).json({ error: "server error" });
                 });
-
-              // return res.status(200).json({
-              //   message: "product added to cart successfully",
-              //   cart: response.cart,
-              //   status: 200,
-              // });
             })
             .catch((e) => {
               console.log(e);

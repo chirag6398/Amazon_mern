@@ -15,14 +15,13 @@ import { userIsAuthenticated } from "./services/user";
 import { getCartItems } from "./services/user";
 import ProductDetail from "./Components/ProductDetail";
 function App() {
-  const [{}, dispatch] = StateValue();
+  const [state, dispatch] = StateValue();
 
   const getUser = async () => {
     try {
       const user = await userIsAuthenticated();
       const products = await getProducts();
-      const cartItems = await getCartItems();
-      console.log(cartItems.cart.items);
+
       if (products) {
         dispatch({ type: "Set_products", payload: products });
       }
@@ -30,9 +29,13 @@ function App() {
       if (user) {
         dispatch({ type: "Set_user", payload: user });
       }
+      // console.log(user.user == null);
+      if (state.user?.username) {
+        const cartItems = await getCartItems();
 
-      if (cartItems) {
-        dispatch({ type: "InitialBasket", payload: cartItems.cart.items });
+        if (cartItems) {
+          dispatch({ type: "InitialBasket", payload: cartItems.cart.items });
+        }
       }
     } catch (e) {
       console.log(e);
