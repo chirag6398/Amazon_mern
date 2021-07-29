@@ -77,12 +77,23 @@ module.exports = {
             .addToCart(req.body.id)
             .then((response) => {
               console.log(response);
+              response
+                .populate("cart.items.productId")
+                .execPopulate()
+                .then((user) => {
+                  console.log(user);
+                  return res.status(200).json({ cart: user.cart });
+                })
+                .catch((e) => {
+                  console.log(e);
+                  return res.status(500).json({ error: "server error" });
+                });
 
-              return res.status(200).json({
-                message: "product added to cart successfully",
-                cart: response.cart,
-                status: 200,
-              });
+              // return res.status(200).json({
+              //   message: "product added to cart successfully",
+              //   cart: response.cart,
+              //   status: 200,
+              // });
             })
             .catch((e) => {
               console.log(e);

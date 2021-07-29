@@ -3,9 +3,12 @@ import productStyle from "../../styles/product.module.css";
 import { useHistory } from "react-router";
 import { addToCart } from "../../services/product";
 import { arrayBufferToBase64 } from "../../util/getImgBuffer";
+import { getCartItems } from "../../services/user";
+import { StateValue } from "../../StateProvider/StateProvider";
+
 export default function Product({ product }) {
   const history = useHistory();
-
+  const [{}, dispatch] = StateValue();
   var imgData = null;
 
   imgData = arrayBufferToBase64(product.productImg.data);
@@ -16,6 +19,11 @@ export default function Product({ product }) {
   const AddtocartHandler = async () => {
     try {
       const data = await addToCart({ id: product._id });
+      console.log(">>>>>", data.cart.items);
+      if (data) {
+        dispatch({ type: "InitialBasket", payload: data.cart.items });
+      }
+      history.push("/checkout");
     } catch (e) {
       console.log(e);
     }

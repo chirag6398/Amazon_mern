@@ -53,6 +53,7 @@ const removeitemFromCart = async (id) => {
   try {
     console.log(id);
     const res = await axios.delete(`/removeItemFromCart/${id}`);
+    return res.data;
   } catch (e) {
     console.log(e);
   }

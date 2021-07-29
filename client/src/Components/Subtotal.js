@@ -9,7 +9,7 @@ export default function Subtotal() {
 
   if (state.basket?.length) {
     for (let val of state.basket) {
-      total += val.productId.price;
+      total += val.productId.price * val.quantity;
     }
   }
 

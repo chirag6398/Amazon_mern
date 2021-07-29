@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import basketStyle from "../styles/basketItem.module.css";
-// import { StateValue } from "../StateProvider/StateProvider";
+import { StateValue } from "../StateProvider/StateProvider";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { arrayBufferToBase64 } from "../util/getImgBuffer";
 import { removeitemFromCart } from "../services/user";
 export default function BasketItems({ data, quantity, id }) {
-  let imgData = arrayBufferToBase64(data.productImg.data);
-
+  let imgData = arrayBufferToBase64(data?.productImg.data);
+  const [{}, dispatch] = StateValue();
   const removeItem = async () => {
     try {
       const status = await removeitemFromCart(id);
+      console.log(">>>>>>>>>>>>>>", status);
+
+      if (status) {
+        dispatch({ type: "InitialBasket", payload: status.data.cart.items });
+      }
     } catch (e) {
       console.log(e);
     }

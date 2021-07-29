@@ -78,15 +78,6 @@ userSchema.methods.removeCartItem = async function (id) {
     const newCartitems = this.cart.items.filter((prod) => {
       return prod._id.toString() != id.toString();
     });
-
-    // const newCartItems = [...this.cart.items];
-    // if (productIndex != -1) {
-    //   newCartItems[productIndex].quantity += 1;
-    // } else {
-    //   const newProduct = { productId: id, quantity: 1 };
-    //   newCartItems.push(newProduct);
-    // }
-
     this.cart.items = newCartitems;
     await this.save();
     return this;

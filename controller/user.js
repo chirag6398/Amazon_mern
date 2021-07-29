@@ -145,7 +145,7 @@ module.exports = {
         .removeCartItem(req.params.id)
         .then((status) => {
           console.log(status);
-          return res.status(200);
+          return res.status(200).json({ data: status });
         })
         .catch((e) => {
           console.log(e);
