@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RegisterStyle from "../styles/register.module.css";
 import { Link, useHistory } from "react-router-dom";
 import amzImg from "../assets/images/amazonimg.png";
 import userRegister from "../services/user";
+import { StateValue } from "../StateProvider/StateProvider";
 
 export default function Register() {
+  const [state] = StateValue();
   const [userCredentials, setUserCredentials] = useState({
     username: "",
     email: "",
@@ -12,6 +14,7 @@ export default function Register() {
     cpassword: "",
     avatar: "",
   });
+
   const history = useHistory();
   const inputHandler = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
@@ -38,7 +41,13 @@ export default function Register() {
       console.log(err);
     }
   };
-  return (
+  useEffect(() => {
+    if (state.user != null) {
+      history.push("/");
+    }
+  });
+
+  return state.user != null ? null : (
     <div className={RegisterStyle.extDiv}>
       <div className={RegisterStyle.mainDiv}>
         <div className={RegisterStyle.header}>

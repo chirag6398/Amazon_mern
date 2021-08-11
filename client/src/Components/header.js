@@ -9,13 +9,11 @@ import { userLogout } from "../services/user";
 
 export default function Header() {
   const [state, dispatch] = StateValue();
-  console.log(state);
 
   const logoutHandler = async () => {
     if (state.user) {
       try {
         const res = await userLogout();
-        console.log(res);
       } catch (e) {
         console.log(e);
       }

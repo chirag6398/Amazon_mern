@@ -14,8 +14,8 @@ const auth = async (req, res, next) => {
       if (!user) {
         return res.status(402).json({ message: "user not authenticated" });
       }
-
-      req.user = user;
+      const nuser = await user.populate("cart.items.productId").execPopulate();
+      req.user = nuser;
 
       next();
     } else {

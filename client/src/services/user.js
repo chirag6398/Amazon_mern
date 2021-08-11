@@ -13,7 +13,7 @@ const userRegister = async (data) => {
 const userLogin = async (data) => {
   try {
     const res = await axios.post("/login", data);
-    console.log(res);
+
     return res;
   } catch (err) {
     console.log("login services", err);
@@ -23,7 +23,7 @@ const userLogin = async (data) => {
 const userIsAuthenticated = async () => {
   try {
     const res = await axios.get("user/isLogin");
-    console.log(res);
+
     return res.data;
   } catch (e) {
     console.log("authenticated services", e);
@@ -33,7 +33,7 @@ const userIsAuthenticated = async () => {
 const userLogout = async () => {
   try {
     const res = await axios.get("user/logout");
-    console.log(res);
+
     return res;
   } catch (e) {
     console.log(e);
@@ -42,7 +42,7 @@ const userLogout = async () => {
 const getCartItems = async () => {
   try {
     const res = await axios.get("/cartitems");
-    console.log(res.data);
+
     return res.data;
   } catch (e) {
     console.log(e);
@@ -51,7 +51,6 @@ const getCartItems = async () => {
 
 const removeitemFromCart = async (id) => {
   try {
-    console.log(id);
     const res = await axios.delete(`/removeItemFromCart/${id}`);
     return res.data;
   } catch (e) {

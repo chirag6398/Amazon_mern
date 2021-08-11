@@ -29,14 +29,8 @@ function App() {
       if (user) {
         dispatch({ type: "Set_user", payload: user });
       }
-      // console.log(user.user == null);
-      if (state.user?.username) {
-        const cartItems = await getCartItems();
 
-        if (cartItems) {
-          dispatch({ type: "InitialBasket", payload: cartItems.cart.items });
-        }
-      }
+      dispatch({ type: "InitialBasket", payload: user.user.cart.items });
     } catch (e) {
       console.log(e);
     }
