@@ -30,18 +30,18 @@ export default function Product({ product }) {
   };
   return (
     <div className={productStyle.product_card}>
-      <div className="card" style={{ flexDirection: "column" }}>
+      <div style={{ flexDirection: "column", width: "min-content" }}>
         <div className={productStyle.upper_card} onClick={productDetailHandler}>
           <div>
             <img
-              className="card-img-top"
+              // className="card-img-top"
               src={`data:image/png;base64,${imgData}`}
               alt="..."
             />
           </div>
 
-          <div className="card-body">
-            <p className="card-text">{product.title}</p>
+          <div>
+            <p>{product.title}</p>
             <strong>
               Rs.<em>{product.price}</em>
             </strong>
