@@ -1,10 +1,6 @@
 .product_card {
-  margin: 10px;
-  width: 16rem;
   transition: all 1s;
   cursor: pointer;
-  margin-bottom: 18px;
-  max-height: 471px;
 }
 .product_card:hover {
   transform: scale(1.1);
@@ -17,12 +13,17 @@
   letter-spacing: 3px;
   margin-bottom: 15px;
 }
-.product_img {
-  width: 100%;
+.imgContainer {
+  display: grid;
+  grid-template-columns: minmax(200px, min-content);
 
-  margin-bottom: 15px;
+  background-color: #f1e8e6;
+}
+img {
+  display: flex;
+  align-self: center;
   object-fit: contain;
-  max-height: 200px;
+  height: 200px;
 }
 .product_adToCartButton {
   background-color: #f0c14b;
@@ -54,6 +55,5 @@
 @media screen and (min-width: 160px) and (max-width: 795px) {
   .product_card {
     width: 60%;
-    margin: 15px;
   }
 }

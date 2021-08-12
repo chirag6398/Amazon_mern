@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import productStyle from "../../styles/product.module.css";
 import { useHistory } from "react-router";
 import { addToCart } from "../../services/product";
@@ -8,6 +8,7 @@ import { StateValue } from "../../StateProvider/StateProvider";
 
 export default function Product({ product }) {
   const history = useHistory();
+  const [showModal, setShowModal] = useState(false);
   const [{}, dispatch] = StateValue();
   var imgData = null;
 
@@ -33,11 +34,7 @@ export default function Product({ product }) {
       <div style={{ flexDirection: "column", width: "min-content" }}>
         <div className={productStyle.upper_card} onClick={productDetailHandler}>
           <div>
-            <img
-              // className="card-img-top"
-              src={`data:image/png;base64,${imgData}`}
-              alt="..."
-            />
+            <img src={`data:image/png;base64,${imgData}`} alt="..." />
           </div>
 
           <div>
