@@ -3,7 +3,7 @@ const User = require("../models/User");
 const auth = async (req, res, next) => {
   try {
     const token = req.cookies.user_token;
-
+    console.log(token);
     if (token) {
       const isVerify = jwt.verify(token, process.env.SECRET_KEY);
 
@@ -16,6 +16,7 @@ const auth = async (req, res, next) => {
       }
       const nuser = await user.populate("cart.items.productId").execPopulate();
       req.user = nuser;
+      console.log(nuser);
 
       next();
     } else {

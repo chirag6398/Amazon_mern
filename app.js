@@ -16,6 +16,7 @@ app.use(cookieParser());
 app.use(require("./routes/user"));
 app.use(require("./routes/product"));
 app.use(require("./routes/route"));
+app.use(require("./routes/order"));
 
 // app.get("*", function (req, res) {
 //   res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
