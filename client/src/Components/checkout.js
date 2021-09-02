@@ -30,7 +30,9 @@ export default function Checkout() {
                 key={product._id}
                 id={product._id}
                 data={product.productId}
+                img={product.productId.productImg.data}
                 quantity={product.quantity}
+                convertImg
               />
             );
           })}

@@ -9,4 +9,13 @@ const addCartToOrder = async () => {
     console.log("addCartToOrder err");
   }
 };
-export { addCartToOrder };
+const getOrders = async () => {
+  try {
+    const res = await axios.get("/getOrders");
+
+    return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+export { addCartToOrder, getOrders };

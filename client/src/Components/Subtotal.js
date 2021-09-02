@@ -19,6 +19,9 @@ export default function Subtotal() {
     try {
       const data = await addCartToOrder();
       console.log(data);
+      if (data) {
+        history.push("/payment");
+      }
     } catch (err) {
       console.log(err);
     }

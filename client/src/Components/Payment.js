@@ -1,75 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import paymentStyle from "../styles/payment.module.css";
 import { StateValue } from "../StateProvider/StateProvider";
 import BasketItems from "./BasketItems.js";
 import { useHistory } from "react-router-dom";
-// import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import subtotalStyle from "../styles/subtotal.module.css";
+import { getOrders } from "../services/order";
 
 export default function Payment() {
-  // const stripe = useStripe();
-  // const elements = useElements();
   const [state, dispatch] = StateValue();
   const history = useHistory();
   const [error, setError] = useState();
   const [disabled, setDisable] = useState();
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState("");
-  // const [clientSecret, setClientSecret] = useState(true);
+
   var total = 0;
-
-  for (let val of state.basket) {
-    total += val.price;
+  if (state.orders?.length) {
+    for (let val of state.orders) {
+      // console.log(val);
+      total += val.product.price * val.quantity;
+    }
   }
-
-  // useEffect(() => {
-  //   const getClientSecret = async () => {
-  //     const response = await axios({
-  //       method: "post",
-  //       url: `/payments/create?total=${total * 100}`,
-  //     });
-  //     setClientSecret(response.data.clientSecret);
-  //   };
-  //   getClientSecret();
-  // }, [state.basket]);
-
-  // console.log(">>>>>>>>", clientSecret);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setProcessing(true);
-    // const payload = await stripe
-    //   .confirmCardPayment(clientSecret, {
-    //     payment_method: {
-    //       card: elements.getElement(CardElement),
-    //     },
-    //   })
-    //   .then(({ paymentIntent }) => {
-    //     db.collection("users")
-    //       .doc(state.user)
-    //       .collection("orders")
-    //       .doc(paymentIntent.id)
-    //       .set({
-    //         basket: state.basket,
-    //         amount: paymentIntent.amount,
-    //         created: paymentIntent.created,
-    //       });
+
     setSucceeded(true);
     setError(null);
     setProcessing(false);
-    dispatch({
-      type: "Empty_basket",
-    });
-    history.replace("/orders");
-    // });
+
+    // history.replace("/orders");
   };
-
-  // const handleChange = (e) => {
-  //   setDisable(e.empty);
-  //   setError(e.error ? e.error.message : "");
-  // };
-
+  const fetchOrders = async () => {
+    try {
+      const data = await getOrders();
+      if (data.status === 200) {
+        dispatch({ type: "SET_ORDERS", payload: data.data.products });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchOrders();
+  }, []);
   return (
     <div className={paymentStyle.payment}>
       <div className={paymentStyle.payment_container}>
@@ -78,7 +54,7 @@ export default function Payment() {
             history.push("/checkout");
           }}
         >
-          Checkout ({state.basket?.length} items)
+          Checkout ({state.orders?.length} items)
         </h1>
         <div className={paymentStyle.payment_section}>
           <div className={paymentStyle.payment_title}>
@@ -99,7 +75,17 @@ export default function Payment() {
             <h3>Review your items</h3>
           </div>
           <div className={paymentStyle.payment_items}>
-            <BasketItems />
+            {state.orders?.map((product) => {
+              return (
+                <BasketItems
+                  key={product._id}
+                  id={product._id}
+                  data={product.product}
+                  img={product.product.productImg}
+                  quantity={product.quantity}
+                />
+              );
+            })}
           </div>
         </div>
 

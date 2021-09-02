@@ -2,10 +2,11 @@ export const initialState = {
   products: [],
   basket: [],
   user: null,
+  orders: [],
 };
 
 export const reducer = (state, action) => {
-  console.log(action.payload);
+  // console.log(action.payload);
   switch (action.type) {
     case "InitialBasket":
       return {
@@ -36,6 +37,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         products: action.payload,
+      };
+    case "SET_ORDERS":
+      return {
+        ...state,
+        orders: action.payload,
       };
     default:
       return state;

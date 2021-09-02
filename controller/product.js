@@ -17,11 +17,9 @@ module.exports = {
 
         const product = new Product({ title, desc, price, productImg });
         product.userId = req.user;
-        // console.log(product);
-        // console.log(req.user);
+
         const productSaveStatus = await product.save();
         if (productSaveStatus) {
-          console.log(productSaveStatus);
           return res
             .status(200)
             .json({ message: "successufully added product", status: 200 });
@@ -39,7 +37,6 @@ module.exports = {
     try {
       Product.find()
         .then((products) => {
-          console.log(products);
           return res.status(200).json({ products });
         })
         .catch((e) => {
@@ -55,10 +52,9 @@ module.exports = {
   getProduct: async (req, res) => {
     try {
       const id = req.params.id;
-      // console.log(id);
+
       Product.findById({ _id: id })
         .then((product) => {
-          console.log(product);
           return res.status(200).json({ data: product, status: 200 });
         })
         .catch((e) => {
@@ -76,7 +72,6 @@ module.exports = {
           user
             .addToCart(req.body.id)
             .then((response) => {
-              console.log(response);
               response
                 .populate("cart.items.productId")
                 .execPopulate()

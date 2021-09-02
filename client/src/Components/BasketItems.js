@@ -4,13 +4,18 @@ import { StateValue } from "../StateProvider/StateProvider";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { arrayBufferToBase64 } from "../util/getImgBuffer";
 import { removeitemFromCart } from "../services/user";
-export default function BasketItems({ data, quantity, id }) {
-  let imgData = arrayBufferToBase64(data?.productImg.data);
+export default function BasketItems({ data, quantity, id, img, convertImg }) {
+  let imgData = null;
+  if (convertImg) {
+    imgData = arrayBufferToBase64(img);
+  } else {
+    imgData = img;
+  }
+
   const [{}, dispatch] = StateValue();
   const removeItem = async () => {
     try {
       const status = await removeitemFromCart(id);
-      console.log(">>>>>>>>>>>>>>", status);
 
       if (status) {
         dispatch({ type: "InitialBasket", payload: status.data.cart.items });
@@ -49,19 +54,21 @@ export default function BasketItems({ data, quantity, id }) {
               justifyContent: "center",
             }}
           >
-            <button
-              type="button"
-              style={{
-                width: "200px",
-                backgroundColor: "#f0c14b",
-                borderColor: "#a88734 #9c7e31 #846a29",
-                marginBottom: "10px",
-              }}
-              className="btn  btn-outline"
-              onClick={removeItem}
-            >
-              Remove
-            </button>
+            {convertImg ? (
+              <button
+                type="button"
+                style={{
+                  width: "200px",
+                  backgroundColor: "#f0c14b",
+                  borderColor: "#a88734 #9c7e31 #846a29",
+                  marginBottom: "10px",
+                }}
+                className="btn  btn-outline"
+                onClick={removeItem}
+              >
+                Remove
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
