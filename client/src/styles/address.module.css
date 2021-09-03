@@ -49,10 +49,10 @@
   background-color: #f3eded;
   padding: 10px;
 }
-.rowCenter {
-  /* align-items: center; */
-  /* grid-column-start: -1; */
-}
+/* .rowCenter { */
+/* align-items: center; */
+/* grid-column-start: -1; */
+/* } */
 .rowCenter > button {
   border: none;
   outline: none;
