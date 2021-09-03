@@ -9,21 +9,44 @@ module.exports = {
         const adrInstace = new Address({
           first,
           zipCode,
-          adress,
+          address,
           number,
           city,
           state,
           last,
+          userId: req.user._id,
         });
-        console.log(adrInstace);
-        const userAddressExist = Address.findOne({ userId: req.user._id });
-        if (userAddressExist) {
+
+        const save = await adrInstace.save();
+        if (save) {
+          return res.status(200).json({
+            message: "address save successfully",
+            status: 200,
+            data: save,
+          });
         } else {
-          console.log(adrInstace);
+          return res.status(500).json({ message: "address not save " });
         }
       }
     } catch (e) {
       console.log(e);
+      return res.status(500).json({ message: "internal error" });
+    }
+  },
+  getAddress: async (req, res) => {
+    try {
+      const address = await Address.findOne({ userId: req.user._id });
+      if (address) {
+        return res.status(200).json({
+          status: 200,
+          data: address,
+        });
+      } else {
+        return res.status(500);
+      }
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ message: "internal error" });
     }
   },
 };

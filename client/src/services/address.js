@@ -9,5 +9,13 @@ const postAddress = async (data) => {
     console.log(e);
   }
 };
-
-export { postAddress };
+const getAddress = async () => {
+  try {
+    const res = await axios.get("/getAddress");
+    console.log(res);
+    return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+export { postAddress, getAddress };
