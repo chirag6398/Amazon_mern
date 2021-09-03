@@ -18,7 +18,7 @@ export default function Subtotal() {
   const checkOutHandler = async () => {
     try {
       const data = await addCartToOrder();
-      console.log(data);
+
       if (data) {
         history.push("/payment");
       }

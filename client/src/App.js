@@ -12,7 +12,8 @@ import Orders from "./Components/Order.js";
 import AddProduct from "./Components/AddProduct";
 import { getProducts } from "./services/product";
 import { userIsAuthenticated } from "./services/user";
-import { getCartItems } from "./services/user";
+// import { getCartItems } from "./services/user";
+import { getAddress } from "./services/address";
 import ProductDetail from "./Components/ProductDetail";
 function App() {
   const [state, dispatch] = StateValue();
@@ -28,6 +29,9 @@ function App() {
 
       if (user) {
         dispatch({ type: "Set_user", payload: user });
+        const address = await getAddress();
+        dispatch({ type: "SET_ADDRESS", payload: address.data });
+        // console.log(address.data);
       }
 
       dispatch({ type: "InitialBasket", payload: user.user.cart.items });

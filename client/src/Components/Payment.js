@@ -9,7 +9,7 @@ import Address from "./Address";
 export default function Payment() {
   const [state, dispatch] = StateValue();
   const history = useHistory();
-  const [isShowAdressPage, setIsShowAdressPage] = useState(true);
+  // const [isShowAdressPage, setIsShowAdressPage] = useState();
   const [error, setError] = useState();
   const [disabled, setDisable] = useState();
   const [succeeded, setSucceeded] = useState(false);
@@ -47,7 +47,7 @@ export default function Payment() {
   useEffect(() => {
     fetchOrders();
   }, []);
-  return isShowAdressPage ? (
+  return state.address?.length ? (
     <Address />
   ) : (
     <div className={paymentStyle.payment}>

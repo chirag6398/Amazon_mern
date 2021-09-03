@@ -21,7 +21,6 @@ export default function Address() {
       e.preventDefault();
       console.log(formData);
       const data = await postAddress(formData);
-      console.log(data);
     } catch (e) {
       console.log(e);
     }
