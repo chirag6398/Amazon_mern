@@ -5,10 +5,11 @@ import BasketItems from "./BasketItems.js";
 import { useHistory } from "react-router-dom";
 import subtotalStyle from "../styles/subtotal.module.css";
 import { getOrders } from "../services/order";
-
+import Address from "./Address";
 export default function Payment() {
   const [state, dispatch] = StateValue();
   const history = useHistory();
+  const [isShowAdressPage, setIsShowAdressPage] = useState(true);
   const [error, setError] = useState();
   const [disabled, setDisable] = useState();
   const [succeeded, setSucceeded] = useState(false);
@@ -46,7 +47,9 @@ export default function Payment() {
   useEffect(() => {
     fetchOrders();
   }, []);
-  return (
+  return isShowAdressPage ? (
+    <Address />
+  ) : (
     <div className={paymentStyle.payment}>
       <div className={paymentStyle.payment_container}>
         <h1
