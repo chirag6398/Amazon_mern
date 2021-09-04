@@ -9,7 +9,6 @@ import Address from "./Address";
 export default function Payment() {
   const [state, dispatch] = StateValue();
   const history = useHistory();
-  // const [isShowAdressPage, setIsShowAdressPage] = useState();
   const [error, setError] = useState();
   const [disabled, setDisable] = useState();
   const [succeeded, setSucceeded] = useState(false);
@@ -18,7 +17,6 @@ export default function Payment() {
   var total = 0;
   if (state.orders?.length) {
     for (let val of state.orders) {
-      // console.log(val);
       total += val.product.price * val.quantity;
     }
   }
@@ -31,8 +29,6 @@ export default function Payment() {
     setSucceeded(true);
     setError(null);
     setProcessing(false);
-
-    // history.replace("/orders");
   };
   const fetchOrders = async () => {
     try {
@@ -47,7 +43,7 @@ export default function Payment() {
   useEffect(() => {
     fetchOrders();
   }, []);
-  return state.address?.length ? (
+  return !state.address ? (
     <Address />
   ) : (
     <div className={paymentStyle.payment}>
@@ -56,6 +52,7 @@ export default function Payment() {
           onClick={(e) => {
             history.push("/checkout");
           }}
+          style={{ cursor: "pointer" }}
         >
           Checkout ({state.orders?.length} items)
         </h1>
@@ -64,17 +61,17 @@ export default function Payment() {
             <h3>Delivery address</h3>
           </div>
           <div className={paymentStyle.payment_address}>
-            {state.user ? (
-              <p>
-                {state.user.username}
-                <br />
-                kayasthan street, Chandausi
-              </p>
-            ) : null}
+            <span>{`${state.address?.first} ${state.address?.last}`}</span>
+            <br />
+            <span>{`${state.address?.address} , ${state.address?.city} (${state.address?.state})`}</span>
+            <br />
+            <span>{`${state.address?.zipCode}`}</span>
+            <br />
+            <span>{`${state.address?.number}`}</span>
           </div>
         </div>
         <div className={paymentStyle.payment_section}>
-          <div className={paymentStyle.payment_tile}>
+          <div className={paymentStyle.payment_title}>
             <h3>Review your items</h3>
           </div>
           <div className={paymentStyle.payment_items}>
@@ -93,12 +90,11 @@ export default function Payment() {
         </div>
 
         <div className={paymentStyle.payment_section}>
-          <div className={paymentStyle.payment_tile}>
+          <div className={paymentStyle.payment_title}>
             <h3>Payment Method</h3>
           </div>
           <div className={paymentStyle.payment_details}>
             <form onSubmit={handleSubmit}>
-              {/* <CardElement onChange={handleChange} /> */}
               <div className={paymentStyle.payment__paymentDetail}>
                 <div className={subtotalStyle.Subtotal_container}>
                   <div

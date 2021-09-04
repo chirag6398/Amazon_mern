@@ -15,15 +15,26 @@
 .payment_section {
   display: flex;
   flex: 1;
+  justify-content: space-between;
   flex-wrap: wrap;
   padding: 20px;
-  margin: 0px 20px;
   border-bottom: 1px solid lightgray;
 }
 .payment_title {
-  margin: 0px 20px;
-  flex: 0.2;
+  margin: 20px 20px;
+}
+.payment_items {
+  width: 100%;
 }
 .payment_address .payment_details {
   flex: 0.8;
+}
+@media (max-width: 617px) {
+  .payment_section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
 }

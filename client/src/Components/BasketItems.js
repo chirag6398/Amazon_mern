@@ -33,10 +33,7 @@ export default function BasketItems({ data, quantity, id, img, convertImg }) {
           src={`data:image/png;base64,${imgData}`}
           alt="Card image cap"
           style={{
-            width: "50%",
             objectFit: "contain",
-            height: "auto",
-            maxHeight: "20vh",
           }}
         />
       </div>
