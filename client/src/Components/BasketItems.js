@@ -27,10 +27,7 @@ export default function BasketItems({ data, quantity, id, img, convertImg }) {
 
   return (
     <div className={basketStyle.basket_container}>
-      <div
-        className="card mb-3"
-        style={{ border: "none", flexDirection: "row" }}
-      >
+      <div className={basketStyle.left}>
         <img
           className="card-img-top"
           src={`data:image/png;base64,${imgData}`}
@@ -42,7 +39,9 @@ export default function BasketItems({ data, quantity, id, img, convertImg }) {
             maxHeight: "20vh",
           }}
         />
-        <div className="card-body">
+      </div>
+      <div className={basketStyle.right}>
+        <div>
           <b>{data.desc}</b>
           <hr />
           <h5 className="card-title">{data.title}</h5>

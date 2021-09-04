@@ -3,7 +3,7 @@ export const initialState = {
   basket: [],
   user: null,
   orders: [],
-  address: null,
+  address: undefined,
 };
 
 export const reducer = (state, action) => {

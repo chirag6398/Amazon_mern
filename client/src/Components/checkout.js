@@ -6,14 +6,25 @@ import { StateValue } from "../StateProvider/StateProvider";
 
 export default function Checkout() {
   const [state] = StateValue();
+  console.log(state.address);
   return (
     <div className={checkoutStyle.container}>
-      <div className={checkoutStyle.checkout_leftSide}>
-        <img
-          className={checkoutStyle.checkout_ad}
-          src="https://images-eu.ssl-images-amazon.com/images/G/31/img20/Audio/Hdpns_Gw_1500x600._CB415716258_.jpg"
-          alt="..."
-        ></img>
+      <div className={checkoutStyle.upper}>
+        {state.address ? (
+          <div className={checkoutStyle.upper_left}>
+            <h4>Delivery Address :</h4>
+            <span>{`${state.address?.first} ${state.address?.last}`}</span>
+            <span>{`${state.address?.address} , ${state.address?.city} (${state.address?.state})`}</span>
+            <span>{`${state.address?.zipCode}`}</span>
+            <span>{`${state.address?.number}`}</span>
+          </div>
+        ) : null}
+
+        <div className={checkoutStyle.upper_right}>
+          <Subtotal />
+        </div>
+      </div>
+      <div className={checkoutStyle.lower}>
         <h3
           style={{
             fontWeight: "thik",
@@ -36,11 +47,7 @@ export default function Checkout() {
               />
             );
           })}
-          {/* <BasketItems /> */}
         </div>
-      </div>
-      <div className={checkoutStyle.checkout_rightSide}>
-        <Subtotal />
       </div>
     </div>
   );
