@@ -1,7 +1,7 @@
 import React from "react";
 import sideHeaderStyle from "../styles/sideHeader.module.css";
-
 import { ImCross } from "react-icons/im";
+import HeaderLinks from "./HeaderLinks";
 export default function SideHeader({ isToggle, setIsToggle }) {
   const toggleHandler = () => {
     setIsToggle(!isToggle);
@@ -22,7 +22,9 @@ export default function SideHeader({ isToggle, setIsToggle }) {
             onClick={toggleHandler}
           />
         </div>
-        <div className={sideHeaderStyle.left_view}></div>
+        <div className={sideHeaderStyle.left_view}>
+          <HeaderLinks showSearch />
+        </div>
       </div>
     </div>
   );
