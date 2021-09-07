@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import loginStyle from "../../styles/login.module.css";
-import { Link } from "react-router-dom";
-import { userEmail } from "../../services/user";
+import { Link, useHistory, useParams } from "react-router-dom";
+import { resetPassword } from "../../services/user";
 export default function Login() {
+  const token = useParams();
   const [userCredentials, setUserCredentials] = useState({
     password: "",
     cpassword: "",
   });
+
+  const history = useHistory();
 
   const inputHandler = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
@@ -14,10 +17,11 @@ export default function Login() {
   const passwordHandler = async (e) => {
     try {
       e.preventDefault();
-      const data = await userEmail(userCredentials);
+      console.log(userCredentials);
+      const data = await resetPassword(userCredentials, token);
 
       if (data.status === 200) {
-        console.log("check your email");
+        history.push("/login");
       }
     } catch (err) {
       console.log(err);

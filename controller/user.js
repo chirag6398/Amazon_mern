@@ -228,4 +228,43 @@ module.exports = {
       return res.status(500).json({ error: "internal error", status: 404 });
     }
   },
+  resetPassword: async (req, res) => {
+    try {
+      const { password, cpassword } = req.body;
+      const token = req.params.token;
+      if (!password || !cpassword) {
+        return res.status(404).json({ error: "plz fill all fields" });
+      }
+      if (password != cpassword) {
+        return res
+          .status(404)
+          .json({ error: "password does not match with cpassword" });
+      }
+      User.findOne({ resetToken: token, expireToken: { $gt: Date.now() } })
+        .then(async (user) => {
+          user.password = await hashPassword(password);
+          user.resetToken = undefined;
+          user.expireToken = undefined;
+          console.log(user);
+          user
+            .save()
+            .then((result) => {
+              return res
+                .status(200)
+                .json({ message: "password reset successfully", status: 200 });
+            })
+            .catch((err) => {
+              console.log(err);
+              return res.status(500);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(300).json({ message: "token expire", status: 300 });
+        });
+    } catch (e) {
+      console.log(e);
+      return res.status(500);
+    }
+  },
 };

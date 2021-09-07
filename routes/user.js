@@ -27,6 +27,7 @@ route.post(
 );
 route.post("/login", userController.Login);
 route.post("/forget-password", userController.forgetPassword);
+route.post("/reset-password/:token", userController.resetPassword);
 module.exports = route;
 
 // router.get("/api/logout", (req, res) => {
