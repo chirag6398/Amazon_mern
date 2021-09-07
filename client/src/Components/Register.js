@@ -140,3 +140,7 @@ export default function Register() {
 // email: "test2@gmail.com"
 // password: "5"
 // username: "chirag112"
+
+// username: 'Chirag',
+// email: 'agarwalchirag112@gmail.com',
+// password: 12345,

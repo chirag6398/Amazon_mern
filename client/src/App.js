@@ -12,9 +12,10 @@ import Orders from "./Components/Order.js";
 import AddProduct from "./Components/AddProduct";
 import { getProducts } from "./services/product";
 import { userIsAuthenticated } from "./services/user";
-// import { getCartItems } from "./services/user";
+import ForgetPassword from "./Components/forgetpassword/ForgetPassword";
 import { getAddress } from "./services/address";
 import ProductDetail from "./Components/ProductDetail";
+import ResetPassword from "./Components/forgetpassword/ResetPassword";
 function App() {
   const [state, dispatch] = StateValue();
 
@@ -75,6 +76,12 @@ function App() {
           </Route>
           <Route exact path="/product/:id">
             <ProductDetail />
+          </Route>
+          <Route exact path="/forget-password">
+            <ForgetPassword />
+          </Route>
+          <Route exact path="/reset/:token">
+            <ResetPassword />
           </Route>
         </Switch>
       </div>

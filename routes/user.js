@@ -26,7 +26,7 @@ route.post(
   userController.addAvatar
 );
 route.post("/login", userController.Login);
-
+route.post("/forget-password", userController.forgetPassword);
 module.exports = route;
 
 // router.get("/api/logout", (req, res) => {

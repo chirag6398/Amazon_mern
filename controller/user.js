@@ -2,6 +2,18 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const sharp = require("sharp");
+const nodemailer = require("nodemailer");
+const crypt = require("crypto");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
+  secure: false,
+  tls: { rejectUnauthorized: false },
+});
 
 const hashPassword = async (password) => {
   try {
@@ -53,7 +65,7 @@ module.exports = {
             console.log(status);
             return res
               .status(200)
-              .json({ message: "user Register successfully" });
+              .json({ message: "user Register successfully", status: 200 });
           } else {
             return res.status(500).json({ server: "try later" });
           }
@@ -91,7 +103,7 @@ module.exports = {
             return res.status(400).json({ error: "wrong credentials" });
           }
         } else {
-          return res.status(404).json({ error: "user not found" });
+          return res.status(404).json({ error: "user not found", status: 404 });
         }
       }
     } catch (err) {
@@ -156,6 +168,64 @@ module.exports = {
     } catch (e) {
       console.log(e);
       return res.status(404);
+    }
+  },
+  forgetPassword: async (req, res) => {
+    try {
+      if (req.body.email) {
+        crypt.randomBytes(32, (err, buffer) => {
+          if (err) {
+            console.log(err);
+          } else {
+            const token = buffer.toString("hex");
+
+            User.findOne({ email: req.body.email })
+              .then((user) => {
+                user.resetToken = token;
+                user.expireToken = Date.now() + 3600000;
+
+                user
+                  .save()
+                  .then((result) => {
+                    const mailOptions = {
+                      from: "no-reeply@gmail.com",
+                      to: result.email,
+                      subject: "reset password",
+                      html: `<p>you requested for password reset
+                      <p>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password`,
+                    };
+                    transporter.sendMail(mailOptions, (error, info) => {
+                      if (error) {
+                        console.log("mail not send ", error);
+                        return res.status(500);
+                      }
+                    });
+
+                    return res
+                      .status(200)
+                      .json({ message: "check your mail", status: 200 });
+                  })
+                  .catch((err) => {
+                    console.log("result not saved", err);
+                    return res
+                      .status(500)
+                      .json({ error: "internal error", status: 500 });
+                  });
+              })
+              .catch((err) => {
+                console.log("user not found", err);
+                return res
+                  .status(500)
+                  .json({ error: "internal error", status: 404 });
+              });
+          }
+        });
+      } else {
+        return res.status(500).json({ error: "internal error", status: 404 });
+      }
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ error: "internal error", status: 404 });
     }
   },
 };

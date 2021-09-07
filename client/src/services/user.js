@@ -11,13 +11,9 @@ const userRegister = async (data) => {
 };
 
 const userLogin = async (data) => {
-  try {
-    const res = await axios.post("/login", data);
+  const res = await axios.post("/login", data);
 
-    return res;
-  } catch (err) {
-    console.log("login services", err);
-  }
+  return res;
 };
 
 const userIsAuthenticated = async () => {
@@ -57,12 +53,18 @@ const removeitemFromCart = async (id) => {
     console.log(e);
   }
 };
+const userEmail = async (credentials) => {
+  const res = await axios.post("/forget-password", credentials);
+  console.log(res);
+  return res.data;
+};
 export {
   userLogin,
   userIsAuthenticated,
   removeitemFromCart,
   userLogout,
   getCartItems,
+  userEmail,
 };
 
 export default userRegister;

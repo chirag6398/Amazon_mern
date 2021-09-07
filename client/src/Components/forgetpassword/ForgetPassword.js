@@ -1,35 +1,26 @@
 import React, { useState } from "react";
-import loginStyle from "../styles/login.module.css";
-import { Link, useHistory } from "react-router-dom";
-import { userLogin } from "../services/user";
-import { StateValue } from "../StateProvider/StateProvider";
+import loginStyle from "../../styles/login.module.css";
+import { Link } from "react-router-dom";
+import { userEmail } from "../../services/user";
 export default function Login() {
-  const [state, dispatch] = StateValue();
-  const history = useHistory();
   const [userCredentials, setUserCredentials] = useState({
     email: "",
-    password: "",
   });
 
   const inputHandler = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
   };
-  const signInHandler = async (e) => {
+  const emailHandler = async (e) => {
     try {
       e.preventDefault();
-      const data = await userLogin(userCredentials);
-      const user = data.data;
+      const data = await userEmail(userCredentials);
+
       if (data.status === 200) {
-        dispatch({ type: "Set_user", payload: user });
-        history.push("/");
+        console.log("check your email");
       }
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const registerHandler = (e) => {
-    history.push("/register");
   };
 
   return (
@@ -45,7 +36,6 @@ export default function Login() {
       </div>
 
       <div className={loginStyle.login_container}>
-        <h1>Sign-In</h1>
         <form>
           <h5>E-mail</h5>
           <input
@@ -54,19 +44,13 @@ export default function Login() {
             value={userCredentials.email}
             onChange={inputHandler}
           ></input>
-          <h5>password</h5>
-          <input
-            type="password"
-            name="password"
-            value={userCredentials.password}
-            onChange={inputHandler}
-          />
+
           <button
             className={loginStyle.login_signinButton}
             type="submit"
-            onClick={signInHandler}
+            onClick={emailHandler}
           >
-            sign-in
+            Submit
           </button>
         </form>
         <Link
@@ -78,20 +62,10 @@ export default function Login() {
             fontWeight: "bold",
             opacity: "0.5",
           }}
-          to="/forget-password"
+          to="/login"
         >
-          <span>Forgot password ?</span>
+          <span>sign in ?</span>
         </Link>
-        <p>
-          By signing-in yuo agree to amazon clone <em>Terms and Conditions</em>
-          plz see our privacy and conditions
-        </p>
-        <button
-          className={loginStyle.login_registerButton}
-          onClick={registerHandler}
-        >
-          Create Your Amazon Account
-        </button>
       </div>
     </div>
   );

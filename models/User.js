@@ -50,6 +50,8 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+  resetToken: String,
+  expireToken: Date,
 });
 userSchema.methods.addToCart = async function (id) {
   try {

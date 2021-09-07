@@ -35,6 +35,9 @@ module.exports = {
   },
   getAddress: async (req, res) => {
     try {
+      if (req.user === null) {
+        return res.status(404);
+      }
       const address = await Address.findOne({ userId: req.user._id });
       if (address) {
         return res.status(200).json({
