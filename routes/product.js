@@ -22,7 +22,7 @@ route.post(
 );
 route.post("/addToCart", auth, productController.addToCart);
 route.get("/getProducts", productController.getProducts);
-
+route.delete("/delete-product/:id", productController.deleteProduct);
 route.get("/getProduct/:id", productController.getProduct);
 
 module.exports = route;

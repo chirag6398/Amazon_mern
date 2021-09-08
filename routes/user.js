@@ -19,6 +19,7 @@ route.get("/user/logout", auth, userController.Logout);
 route.get("/user/isLogin", auth, userController.Authenticated);
 route.get("/cartitems", auth, userController.cartItems);
 route.delete("/removeItemFromCart/:id", auth, userController.deleteCartItem);
+
 route.post("/register", uploadAvatar.single("avatar"), userController.Register);
 route.post(
   "/addAvatar",

@@ -8,6 +8,8 @@ import HeaderLinksStyle from "../styles/headerLinks.module.css";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 export default function HeaderLinks({ showSearch }) {
   const [state] = StateValue();
+
+  console.log(state);
   const logoutHandler = async () => {
     if (state.user) {
       try {
@@ -68,6 +70,30 @@ export default function HeaderLinks({ showSearch }) {
           <span className={headerStyle.header_optionLineTwo}>& Orders</span>
         </div>
 
+        {state.user?.email === "agarwalchirag112@gmail.com" ? (
+          <Link to="/addProduct">
+            <div
+              className={
+                showSearch
+                  ? HeaderLinksStyle.cartOption
+                  : headerStyle.header_option
+              }
+            >
+              <span
+                className={headerStyle.header_optionLineOne}
+                style={showSearch ? { fontSize: "20px" } : null}
+              >
+                Add
+              </span>
+              <span
+                style={showSearch ? { fontSize: "20px" } : null}
+                className={headerStyle.header_optionLineTwo}
+              >
+                products
+              </span>
+            </div>
+          </Link>
+        ) : null}
         {/* <div className={headerStyle.header_option}>
           <span className={headerStyle.header_optionLineOne}>your</span>
           <span className={headerStyle.header_optionLineTwo}>prime</span>

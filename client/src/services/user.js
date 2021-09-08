@@ -58,6 +58,7 @@ const userEmail = async (credentials) => {
   console.log(res);
   return res.data;
 };
+
 const resetPassword = async (credentials, token) => {
   const res = await axios.post(`/reset-password/${token.token}`, credentials);
   console.log(res);

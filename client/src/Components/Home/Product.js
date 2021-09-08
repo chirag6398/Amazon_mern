@@ -3,13 +3,14 @@ import productStyle from "../../styles/product.module.css";
 import { useHistory } from "react-router";
 import { addToCart } from "../../services/product";
 import { arrayBufferToBase64 } from "../../util/getImgBuffer";
-import { getCartItems } from "../../services/user";
+import { deleteProduct } from "../../services/product";
+import { getProducts } from "../../services/product";
 import { StateValue } from "../../StateProvider/StateProvider";
 
 export default function Product({ product }) {
   const history = useHistory();
-  const [showModal, setShowModal] = useState(false);
-  const [{}, dispatch] = StateValue();
+  // const [showModal, setShowModal] = useState(false);
+  const [state, dispatch] = StateValue();
   var imgData = null;
 
   imgData = arrayBufferToBase64(product.productImg.data);
@@ -17,10 +18,24 @@ export default function Product({ product }) {
   const productDetailHandler = () => {
     history.push(`/product/${product._id}`);
   };
+  const deleteHandler = async () => {
+    try {
+      const data = await deleteProduct(product._id);
+      if (data && data.status === 200) {
+        const products = await getProducts();
+
+        if (products) {
+          dispatch({ type: "Set_products", payload: products });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const AddtocartHandler = async () => {
     try {
       const data = await addToCart({ id: product._id });
-      console.log(">>>>>", data.cart.items);
+
       if (data) {
         dispatch({ type: "InitialBasket", payload: data.cart.items });
       }
@@ -51,6 +66,14 @@ export default function Product({ product }) {
           >
             Add to cart
           </button>
+          {state.user?.email === "agarwalchirag112@gmail.com" ? (
+            <button
+              className={productStyle.product_adToCartButton}
+              onClick={deleteHandler}
+            >
+              Delete
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

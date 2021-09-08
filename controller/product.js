@@ -98,4 +98,22 @@ module.exports = {
         .json({ error: "somthing went wrong", status: 404 });
     }
   },
+  deleteProduct: async (req, res) => {
+    try {
+      const id = req.params.id;
+      Product.findOneAndDelete({ _id: id })
+        .then((product) => {
+          return res
+            .status(200)
+            .json({ message: "product remove successfully", status: 200 });
+        })
+        .catch((e) => {
+          console.log(e);
+          return res.status(500);
+        });
+    } catch (err) {
+      console.log(err);
+      return res.status(404);
+    }
+  },
 };

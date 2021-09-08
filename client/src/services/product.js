@@ -17,6 +17,11 @@ const getProducts = async () => {
     console.log(e);
   }
 };
+const deleteProduct = async (id) => {
+  console.log(id);
+  const res = await axios.delete(`/delete-product/${id}`);
+  return res.data;
+};
 const getProduct = async (id) => {
   try {
     const res = await axios.get(`/getProduct/${id}`);
@@ -36,4 +41,4 @@ const addToCart = async ({ id }) => {
     console.log(e);
   }
 };
-export { uploadProduct, getProducts, getProduct, addToCart };
+export { uploadProduct, deleteProduct, getProducts, getProduct, addToCart };

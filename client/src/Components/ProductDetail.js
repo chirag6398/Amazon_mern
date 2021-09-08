@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { StateValue } from "../StateProvider/StateProvider";
 import { arrayBufferToBase64 } from "../util/getImgBuffer";
-
+import { getProducts, deleteProduct } from "../services/product";
 import { addToCart, getProduct } from "../services/product";
 import prodtlStyle from "../styles/productDetail.module.css";
 
 export default function ProductDetail() {
   const id = useParams();
   const history = useHistory();
-  const [{}, dispatch] = StateValue();
+  const [state, dispatch] = StateValue();
   const [product, setProduct] = useState({
     price: null,
     desc: "",
@@ -49,6 +49,20 @@ export default function ProductDetail() {
       console.log(e);
     }
   };
+  const deleteHandler = async () => {
+    try {
+      const data = await deleteProduct(product._id);
+      if (data && data.status === 200) {
+        const products = await getProducts();
+
+        if (products) {
+          dispatch({ type: "Set_products", payload: products });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className={prodtlStyle.ext_div}>
       <div className={prodtlStyle.main_container}>
@@ -73,6 +87,11 @@ export default function ProductDetail() {
             <button className={prodtlStyle.button} onClick={addToCartHandler}>
               <span>Add to cart</span>
             </button>
+            {state.user?.email === "agarwalchirag112@gmail.com" ? (
+              <button className={prodtlStyle.button} onClick={deleteHandler}>
+                <span>Delete Prduct</span>
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
