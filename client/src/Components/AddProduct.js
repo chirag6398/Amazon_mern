@@ -32,42 +32,50 @@ export default function AddProduct() {
     }
   };
   return (
-    <div>
-      <form onSubmit={formHandler} encType="multipart/form-data">
-        <div className={RegisterStyle.row}>
-          <div className={RegisterStyle.rowContainer}>
-            <span>Product image</span>
-            <input
-              type="file"
-              name="productImg"
-              onChange={productImageHandler}
-            />
-          </div>
+    <div className={RegisterStyle.addproduct__ext_div}>
+      <div className={RegisterStyle.addproduct__main}>
+        <div className={RegisterStyle.addproduct__heading}>
+          <span>Add product</span>
         </div>
-        <div className={RegisterStyle.row}>
-          <div className={RegisterStyle.rowContainer}>
-            <span>Title</span>
-            <input type="text" name="title" onChange={inputHandler} />
+        <form onSubmit={formHandler} encType="multipart/form-data">
+          <div className={RegisterStyle.row}>
+            <div className={RegisterStyle.rowContainer}>
+              <span>Product image</span>
+              <input
+                type="file"
+                name="productImg"
+                onChange={productImageHandler}
+              />
+            </div>
           </div>
-        </div>
-        <div className={RegisterStyle.row}>
-          <div className={RegisterStyle.rowContainer}>
-            <span>desc</span>
-            <input type="text" name="desc" onChange={inputHandler} />
+          <div className={RegisterStyle.row}>
+            <div className={RegisterStyle.rowContainer}>
+              <span>Title</span>
+              <input type="text" name="title" onChange={inputHandler} />
+            </div>
           </div>
-        </div>
-        <div className={RegisterStyle.row}>
-          <div className={RegisterStyle.rowContainer}>
-            <span>Price</span>
-            <input type="number" name="price" onChange={inputHandler} />
+          <div className={RegisterStyle.row}>
+            <div className={RegisterStyle.rowContainer}>
+              <span>Description</span>
+              <input type="text" name="desc" onChange={inputHandler} />
+            </div>
           </div>
-        </div>
-        <div className={RegisterStyle.row}>
-          <div className={RegisterStyle.rowContainer}>
-            <input type="submit" />
+          <div className={RegisterStyle.row}>
+            <div className={RegisterStyle.rowContainer}>
+              <span>Price</span>
+              <input type="number" name="price" onChange={inputHandler} />
+            </div>
           </div>
-        </div>
-      </form>
+          <div className={RegisterStyle.row}>
+            <div className={RegisterStyle.rowContainer}>
+              <input
+                className={RegisterStyle.addproduct__submit}
+                type="submit"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

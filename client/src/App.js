@@ -45,7 +45,7 @@ function App() {
     getUser();
   }, []);
   // console.log("length", state.products.products.length);
-  if (!state.products.products.length) return <div>Loading ......</div>;
+  // if (!state.products.products?.length) return <div>Loading ......</div>;
   return (
     <BrowserRouter>
       <div className="App">
