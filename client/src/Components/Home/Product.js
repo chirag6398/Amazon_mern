@@ -9,9 +9,9 @@ import { StateValue } from "../../StateProvider/StateProvider";
 
 export default function Product({ product }) {
   const history = useHistory();
-  // const [showModal, setShowModal] = useState(false);
   const [state, dispatch] = StateValue();
   var imgData = null;
+  const [isAdding, setIsAdding] = useState(false);
 
   imgData = arrayBufferToBase64(product.productImg.data);
 
@@ -34,12 +34,15 @@ export default function Product({ product }) {
   };
   const AddtocartHandler = async () => {
     try {
+      setIsAdding(true);
       const data = await addToCart({ id: product._id });
 
       if (data) {
         dispatch({ type: "InitialBasket", payload: data.cart.items });
       }
+
       history.push("/checkout");
+      setIsAdding(false);
     } catch (e) {
       console.log(e);
     }
@@ -62,6 +65,7 @@ export default function Product({ product }) {
         <div className={productStyle.lower_card}>
           <button
             className={productStyle.product_adToCartButton}
+            disabled={isAdding}
             onClick={AddtocartHandler}
           >
             Add to cart

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { uploadProduct } from "../services/product";
+import { useHistory } from "react-router-dom";
 import RegisterStyle from "../styles/register.module.css";
 
 export default function AddProduct() {
@@ -9,6 +10,8 @@ export default function AddProduct() {
     desc: "",
     price: null,
   });
+  const [processing, setProcessing] = useState(false);
+  const history = useHistory();
   const productImageHandler = (e) => {
     setProduct({ ...product, productImg: e.target.files[0] });
   };
@@ -18,7 +21,7 @@ export default function AddProduct() {
   const formHandler = async (e) => {
     try {
       e.preventDefault();
-      console.log(product);
+      setProcessing(true);
       const formData = new FormData();
       formData.append("productImg", product.productImg);
       formData.append("title", product.title);
@@ -26,7 +29,9 @@ export default function AddProduct() {
       formData.append("price", product.price);
 
       const res = await uploadProduct(formData);
-      console.log(res);
+      if (res) {
+        history.push("/");
+      }
     } catch (e) {
       console.log("formhandler", e);
     }
@@ -69,6 +74,7 @@ export default function AddProduct() {
           <div className={RegisterStyle.row}>
             <div className={RegisterStyle.rowContainer}>
               <input
+                disabled={processing}
                 className={RegisterStyle.addproduct__submit}
                 type="submit"
               />
