@@ -6,6 +6,7 @@ import {StateValue} from "../StateProvider/StateProvider";
 export default function Address({data}) {
   const [formData, setFormData] = useState(data);
   const [state,dispatch]=StateValue();
+  const [isUpdating,setIsUpdating]=useState(false);
   const history=useHistory();
 
   
@@ -26,8 +27,9 @@ export default function Address({data}) {
   const updateHandler=async(e)=>{
     try{
       e.preventDefault();
+      setIsUpdating(true)
      const status=await editAddress(formData);
-     
+     setIsUpdating(false)
      if(status){
       
       dispatch({ type: "UPDATE_ADDRESS", payload: status.data });
@@ -121,8 +123,8 @@ export default function Address({data}) {
             />
           </div>
           <div className={addressStyle.rowCenter}>
-            {data?<button type="submit" onClick={updateHandler}>
-              Update
+            {data?<button type="submit" disabled={isUpdating} onClick={updateHandler}>
+              {isUpdating?"updating...":"Update"}
             </button>:<button type="submit" onClick={submitHandler}>
               Save
             </button>
