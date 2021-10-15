@@ -12,7 +12,7 @@ const postAddress = async (data) => {
 const getAddress = async () => {
   try {
     const res = await axios.get("/getAddress");
-    console.log(res);
+   
     return res.data;
   } catch (e) {
     console.log(e);
@@ -20,9 +20,9 @@ const getAddress = async () => {
 };
 const editAddress=async(data)=>{
   try{
-    console.log(data);
+   
    const res=await axios.put("/editAddress",data);
-   console.log(res);
+   
    return res.data;
   }catch(e){
     console.log(e);

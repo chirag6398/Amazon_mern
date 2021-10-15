@@ -49,6 +49,11 @@ export const reducer = (state, action) => {
         ...state,
         address: action.payload,
       };
+    case "UPDATE_ADDRESS":
+      return{
+        ...state,
+        address:action.payload
+      }
     default:
       return state;
   }

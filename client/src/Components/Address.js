@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import addressStyle from "../styles/address.module.css";
 import { postAddress,editAddress } from "../services/address";
 import { useHistory } from "react-router";
+import {StateValue} from "../StateProvider/StateProvider";
 export default function Address({data}) {
   const [formData, setFormData] = useState(data);
+  const [state,dispatch]=StateValue();
   const history=useHistory();
 
   
@@ -25,8 +27,10 @@ export default function Address({data}) {
     try{
       e.preventDefault();
      const status=await editAddress(formData);
-     console.log(status);
+     
      if(status){
+      
+      dispatch({ type: "UPDATE_ADDRESS", payload: status.data });
        history.push("/checkout");
      }
     }catch(e){
