@@ -36,20 +36,20 @@ export default function Product({ product }) {
     try {
       setIsAdding(true);
       const data = await addToCart({ id: product._id });
-
+      setIsAdding(false);
       if (data) {
         dispatch({ type: "InitialBasket", payload: data.cart.items });
       }
 
       history.push("/checkout");
-      setIsAdding(false);
+      
     } catch (e) {
       console.log(e);
     }
   };
   return (
     <div className={productStyle.product_card}>
-      <div style={{ flexDirection: "column", width: "min-content" }}>
+      <div style={{ flexDirection: "column", width: "min-content" ,padding:"10px"}}>
         <div className={productStyle.upper_card} onClick={productDetailHandler}>
           <div>
             <img src={`data:image/png;base64,${imgData}`} alt="..." />
@@ -68,7 +68,7 @@ export default function Product({ product }) {
             disabled={isAdding}
             onClick={AddtocartHandler}
           >
-            Add to cart
+           {isAdding?"adding...":"Add to cart"} 
           </button>
           {state.user?.email === "agarwalchirag112@gmail.com" ? (
             <button
