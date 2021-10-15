@@ -15,6 +15,7 @@ import { userIsAuthenticated } from "./services/user";
 import ForgetPassword from "./Components/forgetpassword/ForgetPassword";
 import { getAddress } from "./services/address";
 import ProductDetail from "./Components/ProductDetail";
+import Address from "./Components/Address";
 import ResetPassword from "./Components/forgetpassword/ResetPassword";
 function App() {
   const [state, dispatch] = StateValue();
@@ -64,6 +65,9 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/editAddress">
+            <Address data={state.address} />
           </Route>
           <Route exact path="/register">
             <Register />

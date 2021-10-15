@@ -5,6 +5,7 @@ import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { arrayBufferToBase64 } from "../util/getImgBuffer";
 import { removeitemFromCart } from "../services/user";
 export default function BasketItems({ data, quantity, id, img, convertImg }) {
+  const [isRemoving, setIsRemoving] = useState(false)
   let imgData = null;
   if (convertImg) {
     imgData = arrayBufferToBase64(img);
@@ -15,8 +16,9 @@ export default function BasketItems({ data, quantity, id, img, convertImg }) {
   const [{}, dispatch] = StateValue();
   const removeItem = async () => {
     try {
+      setIsRemoving(true);
       const status = await removeitemFromCart(id);
-
+      setIsRemoving(false);
       if (status) {
         dispatch({ type: "InitialBasket", payload: status.data.cart.items });
       }
@@ -43,6 +45,7 @@ export default function BasketItems({ data, quantity, id, img, convertImg }) {
           <hr />
           <h5 className="card-title">{data.title}</h5>
           <strong>Rs.{data.price}</strong>
+          <p>Quantity:<b>{quantity}</b></p>
           <div
             style={{
               display: "flex",
@@ -59,11 +62,13 @@ export default function BasketItems({ data, quantity, id, img, convertImg }) {
                   borderColor: "#a88734 #9c7e31 #846a29",
                   marginBottom: "10px",
                 }}
+                disabled={isRemoving}
                 className="btn  btn-outline"
                 onClick={removeItem}
               >
-                Remove
+                {isRemoving?"removing...":"Remove"}
               </button>
+              
             ) : null}
           </div>
         </div>

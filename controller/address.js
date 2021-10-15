@@ -52,4 +52,41 @@ module.exports = {
       return res.status(500).json({ message: "internal error" });
     }
   },
+  editAddress:async(req,res)=>{
+    try{
+      if (req.user === null) {
+        return res.status(404);
+      }
+
+      const address = await Address.findOne({ userId: req.user._id });
+      if (address) {
+        address.first=req.body.first;
+        address.last=req.body.last;
+        address.zipCode=req.body.zipCode;
+        address.address=req.body.address;
+        address.city=req.body.city;
+        address.number=req.body.number;
+        address.state=req.body.state;
+
+        address.save().then((addr)=>{
+          return res.status(200).json({
+            status: 200,
+            data: address,
+          });
+        }).catch((e)=>{
+          console.log(e);
+          return res.status(500);
+        })
+        
+      } else {
+        return res.status(500);
+      }
+
+      
+
+    }catch(err){
+      console.log(err);
+      return res.status(500).json({ message: "internal error" });
+    }
+  }
 };

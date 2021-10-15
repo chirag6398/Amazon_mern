@@ -1,22 +1,32 @@
 import React from "react";
 import checkoutStyle from "../styles/checkout.module.css";
 import Subtotal from "./Subtotal";
+import { useHistory } from "react-router";
 import BasketItems from "./BasketItems.js";
 import { StateValue } from "../StateProvider/StateProvider";
 
 export default function Checkout() {
   const [state] = StateValue();
-  console.log(state.address);
+  const history=useHistory()
+  const addressHandler=()=>{
+    history.push("/editAddress");
+  }
   return (
     <div className={checkoutStyle.container}>
       <div className={checkoutStyle.upper}>
         {state.address ? (
           <div className={checkoutStyle.upper_left}>
+            <div className={checkoutStyle.addressContainer}>
             <h4>Delivery Address :</h4>
             <span>{`${state.address?.first} ${state.address?.last}`}</span>
             <span>{`${state.address?.address} , ${state.address?.city} (${state.address?.state})`}</span>
             <span>{`${state.address?.zipCode}`}</span>
             <span>{`${state.address?.number}`}</span>
+            </div>
+            <div >
+              <button className={checkoutStyle.addressEditButton} onClick={addressHandler} >Edit</button>
+            </div>
+            
           </div>
         ) : null}
 

@@ -18,4 +18,14 @@ const getAddress = async () => {
     console.log(e);
   }
 };
-export { postAddress, getAddress };
+const editAddress=async(data)=>{
+  try{
+    console.log(data);
+   const res=await axios.put("/editAddress",data);
+   console.log(res);
+   return res.data;
+  }catch(e){
+    console.log(e);
+  }
+}
+export { postAddress, getAddress,editAddress };

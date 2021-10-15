@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import addressStyle from "../styles/address.module.css";
-import { postAddress } from "../services/address";
+import { postAddress,editAddress } from "../services/address";
+import { useHistory } from "react-router";
+export default function Address({data}) {
+  const [formData, setFormData] = useState(data);
+  const history=useHistory();
 
-export default function Address() {
-  const [formData, setFormData] = useState({
-    first: "",
-    last: "",
-    number: undefined,
-    zipCode: undefined,
-    address: "",
-    city: "",
-    state: "",
-  });
+  
+  
 
   const inputHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,6 +21,18 @@ export default function Address() {
       console.log(e);
     }
   };
+  const updateHandler=async(e)=>{
+    try{
+      e.preventDefault();
+     const status=await editAddress(formData);
+     console.log(status);
+     if(status){
+       history.push("/checkout");
+     }
+    }catch(e){
+      console.log(e);
+    }
+  }
   return (
     <div className={addressStyle.ext_div}>
       <div className={addressStyle.heading}>
@@ -49,7 +57,7 @@ export default function Address() {
             <input
               type="text"
               name="first"
-              value={formData.first}
+              value={formData?.first}
               onChange={inputHandler}
               placeholder="First name"
             />
@@ -57,7 +65,7 @@ export default function Address() {
           <div className={addressStyle.row}>
             <input
               name="last"
-              value={formData.last}
+              value={formData?.last}
               onChange={inputHandler}
               type="text"
               placeholder="Last name"
@@ -66,7 +74,7 @@ export default function Address() {
           <div className={addressStyle.row}>
             <input
               name="address"
-              value={formData.address}
+              value={formData?.address}
               onChange={inputHandler}
               type="text"
               placeholder="Address"
@@ -75,7 +83,7 @@ export default function Address() {
           <div className={addressStyle.row}>
             <input
               name="city"
-              value={formData.city}
+              value={formData?.city}
               onChange={inputHandler}
               type="text"
               placeholder="City"
@@ -84,7 +92,7 @@ export default function Address() {
           <div className={addressStyle.row}>
             <input
               name="state"
-              value={formData.state}
+              value={formData?.state}
               onChange={inputHandler}
               type="text"
               placeholder="State"
@@ -93,7 +101,7 @@ export default function Address() {
           <div className={addressStyle.row}>
             <input
               name="zipCode"
-              value={formData.zipCode}
+              value={formData?.zipCode}
               onChange={inputHandler}
               type="number"
               placeholder="Zip-code"
@@ -102,16 +110,20 @@ export default function Address() {
           <div className={addressStyle.row}>
             <input
               name="number"
-              value={formData.number}
+              value={formData?.number}
               onChange={inputHandler}
               type="number"
               placeholder="Phone number"
             />
           </div>
           <div className={addressStyle.rowCenter}>
-            <button type="submit" onClick={submitHandler}>
+            {data?<button type="submit" onClick={updateHandler}>
+              Update
+            </button>:<button type="submit" onClick={submitHandler}>
               Save
             </button>
+            }
+            
           </div>
         </div>
       </form>

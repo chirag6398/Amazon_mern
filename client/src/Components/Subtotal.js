@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { useHistory } from "react-router-dom";
 import SubtotalStyle from "../styles/subtotal.module.css";
 import { StateValue } from "../StateProvider/StateProvider";
@@ -6,6 +6,7 @@ import { addCartToOrder } from "../services/order";
 
 export default function Subtotal() {
   const [state, dispatch] = StateValue();
+  const [isChecking,setIsChecking]=useState(false);
   var total = 0;
 
   if (state.basket?.length) {
@@ -17,9 +18,11 @@ export default function Subtotal() {
   const history = useHistory();
   const checkOutHandler = async () => {
     try {
+      setIsChecking(true);
       const data = await addCartToOrder();
 
       if (data) {
+        setIsChecking(false);
         history.push("/payment");
       }
     } catch (err) {
@@ -40,12 +43,12 @@ export default function Subtotal() {
           <span>add a gift for match</span>
           <br />
           <button
-            disabled={!state.basket?.length}
+            disabled={!state.basket?.length || isChecking}
             onClick={checkOutHandler}
             className="btn btn-dark"
             style={{ display: "flex", flex: "1 1 auto" }}
           >
-            CheckOut here
+            {isChecking?"processing...":"CheckOut here"}
           </button>
         </div>
       </div>
