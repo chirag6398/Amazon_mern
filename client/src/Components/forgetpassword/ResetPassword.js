@@ -8,6 +8,7 @@ export default function Login() {
     password: "",
     cpassword: "",
   });
+  const [isProcessing,setIsProcessing]=useState(false);
 
   const history = useHistory();
 
@@ -17,9 +18,10 @@ export default function Login() {
   const passwordHandler = async (e) => {
     try {
       e.preventDefault();
+      setIsProcessing(true);
       console.log(userCredentials);
       const data = await resetPassword(userCredentials, token);
-
+      setIsProcessing(false);
       if (data.status === 200) {
         history.push("/login");
       }
@@ -59,9 +61,10 @@ export default function Login() {
           <button
             className={loginStyle.login_signinButton}
             type="submit"
+            disabled={isProcessing}
             onClick={passwordHandler}
           >
-            Submit
+            {isProcessing?"processing...":"Submit"}
           </button>
         </form>
         <Link

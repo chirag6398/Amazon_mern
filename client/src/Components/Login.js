@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import loginStyle from "../styles/login.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { userLogin } from "../services/user";
+
+import 'react-toastify/dist/ReactToastify.css';
 import { StateValue } from "../StateProvider/StateProvider";
 export default function Login() {
   const [state, dispatch] = StateValue();
@@ -10,6 +12,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [isProcessing,setIsProcessing]=useState(false);
 
   const inputHandler = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
@@ -17,9 +20,13 @@ export default function Login() {
   const signInHandler = async (e) => {
     try {
       e.preventDefault();
+      setIsProcessing(true);
       const data = await userLogin(userCredentials);
       const user = data.data;
+      setIsProcessing(false);
       if (data.status === 200) {
+        
+        alert("login successfully")
         dispatch({ type: "Set_user", payload: user });
         history.push("/");
       }
@@ -65,10 +72,13 @@ export default function Login() {
             className={loginStyle.login_signinButton}
             type="submit"
             onClick={signInHandler}
+            disabled={isProcessing}
           >
-            sign-in
+           {isProcessing?"processing...":"sign-in"}
           </button>
+         
         </form>
+        
         <Link
           style={{
             height: "30px",
@@ -93,6 +103,7 @@ export default function Login() {
           Create Your Amazon Account
         </button>
       </div>
+      
     </div>
   );
 }
