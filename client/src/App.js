@@ -47,8 +47,8 @@ function App() {
   useEffect(() => {
     getUser();
   }, []);
-  // console.log("length", state.products.products.length);
-  // if (!state.products.products?.length) return <div>Loading ......</div>;
+  // console.log("length", state.products.products?.length);
+  if (state.products.products?.length===undefined) return <div>Loading ......</div>;
   return (
     <BrowserRouter>
       <div className="App">
