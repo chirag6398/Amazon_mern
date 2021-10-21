@@ -37,7 +37,8 @@ export default function Address({data}) {
      const status=await editAddress(formData);
      setIsUpdating(false)
      if(status){
-      alert("updation is successfull")({ type: "UPDATE_ADDRESS", payload: status.data });
+      alert("updation is successfull");
+      dispatch({ type: "UPDATE_ADDRESS", payload: status.data });
        history.push("/checkout");
      }
     }catch(e){

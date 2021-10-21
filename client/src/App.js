@@ -17,6 +17,8 @@ import { getAddress } from "./services/address";
 import ProductDetail from "./Components/ProductDetail";
 import Address from "./Components/Address";
 import ResetPassword from "./Components/forgetpassword/ResetPassword";
+
+
 function App() {
   const [state, dispatch] = StateValue();
 
@@ -35,7 +37,7 @@ function App() {
 
         dispatch({ type: "SET_ADDRESS", payload: address.data });
         dispatch({ type: "InitialBasket", payload: user.user.cart.items });
-        console.log(user.user.cart.items);
+        
       }
 
       
@@ -47,7 +49,7 @@ function App() {
   useEffect(() => {
     getUser();
   }, []);
-  // console.log("length", state.products.products?.length);
+
   if (state.products.products?.length===undefined) return <div>Loading ......</div>;
   return (
     <BrowserRouter>
