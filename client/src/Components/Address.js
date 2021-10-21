@@ -5,8 +5,9 @@ import { useHistory } from "react-router";
 import {StateValue} from "../StateProvider/StateProvider";
 export default function Address({data}) {
   const [formData, setFormData] = useState(data);
-  const [state,dispatch]=StateValue();
+  const [dispatch]=StateValue();
   const [isUpdating,setIsUpdating]=useState(false);
+  const [isProcessing,setIsProcessing]=useState(false);
   const history=useHistory();
 
   
@@ -18,8 +19,13 @@ export default function Address({data}) {
   const submitHandler = async (e) => {
     try {
       e.preventDefault();
-      console.log(formData);
+      setIsProcessing(true);
       const data = await postAddress(formData);
+      if(data){
+        setIsProcessing(false);
+        alert("address has been added successfully")
+        history.push('/payment');
+      }
     } catch (e) {
       console.log(e);
     }
@@ -31,8 +37,7 @@ export default function Address({data}) {
      const status=await editAddress(formData);
      setIsUpdating(false)
      if(status){
-      
-      dispatch({ type: "UPDATE_ADDRESS", payload: status.data });
+      alert("updation is successfull")({ type: "UPDATE_ADDRESS", payload: status.data });
        history.push("/checkout");
      }
     }catch(e){
@@ -125,8 +130,8 @@ export default function Address({data}) {
           <div className={addressStyle.rowCenter}>
             {data?<button type="submit" disabled={isUpdating} onClick={updateHandler}>
               {isUpdating?"updating...":"Update"}
-            </button>:<button type="submit" onClick={submitHandler}>
-              Save
+            </button>:<button type="submit" disabled={isProcessing} onClick={submitHandler}>
+              {isProcessing?"saving...":"Save"}
             </button>
             }
             

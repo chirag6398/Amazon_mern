@@ -32,11 +32,13 @@ function App() {
       if (user) {
         dispatch({ type: "Set_user", payload: user });
         const address = await getAddress();
+
         dispatch({ type: "SET_ADDRESS", payload: address.data });
-        // console.log(address.data);
+        dispatch({ type: "InitialBasket", payload: user.user.cart.items });
+        console.log(user.user.cart.items);
       }
 
-      dispatch({ type: "InitialBasket", payload: user.user.cart.items });
+      
     } catch (e) {
       console.log(e);
     }
