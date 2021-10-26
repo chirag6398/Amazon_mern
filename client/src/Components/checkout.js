@@ -46,12 +46,13 @@ export default function Checkout() {
         </h3>
         <div className={checkoutStyle.checkout_basket}>
           {state.basket?.map((product) => {
+            
             return (
               <BasketItems
                 key={product._id}
                 id={product._id}
                 data={product.productId}
-                img={product.productId.productImg.data}
+                img={product.productId?.productImg?.data}
                 quantity={product.quantity}
                 convertImg
               />

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { uploadProduct } from "../services/product";
 import { useHistory } from "react-router-dom";
 import RegisterStyle from "../styles/register.module.css";
+import {getProducts} from "../services/product";
+import {StateValue} from "../StateProvider/StateProvider";
 
 export default function AddProduct() {
   const [product, setProduct] = useState({
@@ -10,6 +12,7 @@ export default function AddProduct() {
     desc: "",
     price: null,
   });
+  const [dispatch] = StateValue();
   const [processing, setProcessing] = useState(false);
   const history = useHistory();
   const productImageHandler = (e) => {
@@ -30,6 +33,13 @@ export default function AddProduct() {
 
       const res = await uploadProduct(formData);
       if (res) {
+        alert("product added successfully");
+        const products = await getProducts();
+
+        if (products) {
+          dispatch({ type: "Set_products", payload: products });
+        }
+
         history.push("/");
       }
     } catch (e) {

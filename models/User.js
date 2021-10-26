@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
         productId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "product",
-          required: true,
+          
         },
         quantity: {
           type: Number,
@@ -78,10 +78,13 @@ userSchema.methods.addToCart = async function (id) {
 userSchema.methods.removeCartItem = async function (id) {
   try {
     const newCartitems = this.cart.items.filter((prod) => {
+     
       return prod._id.toString() != id.toString();
     });
+    
     this.cart.items = newCartitems;
     await this.save();
+   
     return this;
   } catch (e) {
     console.log(e);

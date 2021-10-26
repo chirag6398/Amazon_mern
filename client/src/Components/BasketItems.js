@@ -5,6 +5,7 @@ import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { arrayBufferToBase64 } from "../util/getImgBuffer";
 import { removeitemFromCart } from "../services/user";
 export default function BasketItems({ data, quantity, id, img, convertImg }) {
+  
   const [isRemoving, setIsRemoving] = useState(false)
   let imgData = null;
   if (convertImg) {
@@ -17,10 +18,12 @@ export default function BasketItems({ data, quantity, id, img, convertImg }) {
   const removeItem = async () => {
     try {
       setIsRemoving(true);
+      
       const status = await removeitemFromCart(id);
       setIsRemoving(false);
       if (status) {
         dispatch({ type: "InitialBasket", payload: status.data.cart.items });
+        alert("item remove successfully")
       }
     } catch (e) {
       console.log(e);
@@ -33,7 +36,7 @@ export default function BasketItems({ data, quantity, id, img, convertImg }) {
         <img
           className="card-img-top"
           src={`data:image/png;base64,${imgData}`}
-          alt="Card image cap"
+          alt="current item has been out of stock"
           style={{
             objectFit: "contain",
           }}
@@ -41,10 +44,10 @@ export default function BasketItems({ data, quantity, id, img, convertImg }) {
       </div>
       <div className={basketStyle.right}>
         <div>
-          <b>{data.desc}</b>
+          <b>{data?.desc}</b>
           <hr />
-          <h5 className="card-title">{data.title}</h5>
-          <strong>Rs.{data.price}</strong>
+          <h5 className="card-title">{data?.title}</h5>
+          <strong>Rs.{data?.price}</strong>
           <p>Quantity:<b>{quantity}</b></p>
           <div
             style={{
