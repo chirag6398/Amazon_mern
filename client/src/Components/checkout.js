@@ -7,6 +7,8 @@ import { StateValue } from "../StateProvider/StateProvider";
 
 export default function Checkout() {
   const [state] = StateValue();
+  let basketLength=state.basket?.length;
+ 
   const history=useHistory()
   const addressHandler=()=>{
     history.push("/editAddress");
@@ -42,7 +44,7 @@ export default function Checkout() {
             borderTop: "1px solid lightgray",
           }}
         >
-          Your Basket
+          Your Basket has <strong>{basketLength==0?`(${basketLength}) item`:`(${basketLength}) items`}</strong>
         </h3>
         <div className={checkoutStyle.checkout_basket}>
           {state.basket?.map((product) => {
