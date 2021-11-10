@@ -192,7 +192,7 @@ module.exports = {
                       to: result.email,
                       subject: "reset password",
                       html: `<p>you requested for password reset
-                      <p>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password`,
+                      <p>click in this <a href="https://ecommerce-usingmern.herokuapp.com/reset/${token}">link</a> to reset password`,
                     };
                     transporter.sendMail(mailOptions, (error, info) => {
                       if (error) {
