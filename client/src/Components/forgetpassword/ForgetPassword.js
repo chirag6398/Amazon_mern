@@ -19,6 +19,7 @@ export default function Login() {
       
       if (data.status === 200) {
         alert("check your mail box") 
+        setIsProcessing(false);
         
       }
     } catch (err) {

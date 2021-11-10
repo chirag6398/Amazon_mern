@@ -114,8 +114,11 @@ module.exports = {
     try {
       res.clearCookie("user_token", { path: "/" });
       res.status(201).send("user logout successfully");
+      return res.status(201).json({message:"logout successfull",status:200})
     } catch (e) {
       console.log("logout err", e);
+      return res.status(401).json({error:"try later ",status:401})
+      
     }
   },
   addAvatar: async (req, res) => {

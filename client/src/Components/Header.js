@@ -19,9 +19,10 @@ export default function Header() {
     if (state.user) {
       try {
         const res = await userLogout();
-        if(res){
+        console.log(res,"logout");
+        // if(res){
           alert("logout is successfull")
-        }
+        // }
       } catch (e) {
         console.log(e);
       }
