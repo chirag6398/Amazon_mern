@@ -64,8 +64,13 @@ function App() {
             <Payment />
           </Route>
           <Route exact path="/checkout">
-            <Header />
-            <Checkout />
+
+            {
+              (state.user==null)? <Login />:<><Header />
+                                              <Checkout />
+                                              </>
+            }
+            
           </Route>
           <Route exact path="/login">
             <Login />

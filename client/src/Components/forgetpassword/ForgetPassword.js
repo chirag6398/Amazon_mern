@@ -7,7 +7,7 @@ export default function Login() {
     email: "",
   });
   const [isProcessing,setIsProcessing]=useState(false);
-
+  const [isProcessed,setIsProcessed]=useState(false);
   const inputHandler = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
   };
@@ -18,9 +18,9 @@ export default function Login() {
       const data = await userEmail(userCredentials);
       
       if (data.status === 200) {
-        alert("check your mail box") 
-        setIsProcessing(false);
-        
+        // alert("check your mail box") 
+        // setIsProcessing(false);
+           setIsProcessed(true);
       }
     } catch (err) {
       console.log(err);
@@ -55,7 +55,8 @@ export default function Login() {
             onClick={emailHandler}
             disabled={isProcessing}
           >
-            {isProcessing?"sending...":"Submit"}
+            {isProcessing && isProcessed ? "check mail" : isProcessing ? "sending..." : "Submit"}
+
           </button>
         </form>
         <Link

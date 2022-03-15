@@ -26,12 +26,13 @@ export default function Login() {
       setIsProcessing(false);
       if (data.status === 200) {
         
-        alert("login successfully")
+        // alert("login successfully")
         dispatch({ type: "Set_user", payload: user });
         history.push("/");
       }
     } catch (err) {
-      console.log(err);
+        alert("please enter correct email and password");
+        setIsProcessing(false);
     }
   };
 
