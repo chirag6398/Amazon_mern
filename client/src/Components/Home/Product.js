@@ -25,7 +25,7 @@ export default function Product({ product }) {
         const products = await getProducts();
 
         if (products) {
-          alert("item deleted successfully");
+          // alert("item deleted successfully");
           dispatch({ type: "Set_products", payload: products });
         }
       }
@@ -39,7 +39,7 @@ export default function Product({ product }) {
       const data = await addToCart({ id: product._id });
       setIsAdding(false);
       if (data) {
-        alert("item added successfully");
+        // alert("item added successfully");
         dispatch({ type: "InitialBasket", payload: data.cart.items });
       }
 
